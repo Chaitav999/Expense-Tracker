@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="CSS/main-page.css">
+        <title>Expense Tracker</title>
+        
+    </head>
+
+    <body>
+        <section>
+            <div class="css-body">
+                <div class="left-section">
+                    <img src="Images/LOGO.png" class="logo-img"/>
+
+                    <button class="dash-button">DASHBOARD</button>
+                    <button class="transaction-button">TRANSACTIONS</button>
+                    <button class="settings-button">SETTINGS</button>
+                </div>
+
+                <div class="middle-section">
+                    <h2 class="header-1">Expense Tracker</h2>
+
+                    <div class="expense-dashboard">
+
+                        <div class="curr-balance">
+                            <p>Current Balance</p>
+                            <p>$2100</p>
+                        </div>
+
+                        <div class="total-income">
+                            <p>Total income</p>
+                            <p>$10000</p>
+                        </div>
+
+                        <div class="expense">
+                            <p>Expense</p>
+                            <p>$1100</p>
+                        </div>
+                    </div> <!--Expense-dashboard-->
+
+                    <div class="input-container">
+
+                        <input placeholder="Enter description" class="description-input" type="text">
+
+                        <input placeholder="Amount" class="amount-input" type="number">
+
+                        <label class="income-checkbox">
+                            <input type="radio" class="income-checkbox-text"> 
+                            <span class="label-text">Income</span>
+                        </label>
+                        <label class="expense-checkbox">
+                            <input type="radio" class="expense-checkbox-text"> 
+                            <span class="label-text">Expense</span>
+                        </label>
+
+                        <button class="add-button">Add</button>
+                    </div>
+                    
+
+                </div> <!--middle-section-->
+                
+                <div class="right-section">
+                    <div>
+                        <h2 class="header-2">Transactions</h2>
+                    </div>
+                    
+
+                    <div class="transaction-container">
+
+                        <div class="transaction-header">
+                            <div class="transaction-title">Title</div>
+                            <div>Date</div>
+                            <div>Amount</div>
+                        </div>
+                        
+                        <div class="dynamic-transactoin">
+                            
+                        </div>
+                    </div> <!--transaction container-->
+                </div> <!--right-section-->
+            </div> <!--css-body-->
+        </section>
+
+        <script src="JS/main-page.js"></script>
+    </body>
+</html>
