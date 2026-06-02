@@ -16,18 +16,17 @@ body{
 }
 
 .left-section{
-    width: 180px;
+    width: 220px;
     flex-shrink: 0;
-    height: 800px;
-    background-color: rgb(80, 42, 186);
-    margin-left: 10px;
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    
+    height: 100vh;
+
+    background-color: rgb(80,42,186);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    padding-top:30px;
 }
 .logo-img{
     height: 100px;
@@ -35,19 +34,20 @@ body{
     background: transparent;
     margin-bottom: 50px;
 }
-.dash-button, .transaction-button,
-.settings-button {
-    background: transparent;
-    color: white;
-    border: none;
-    font-size: 20px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.dash-button,
+.transaction-button,
+.settings-button{
+    width: 180px;
+    text-align:left;
+    padding:12px 20px;
+    border-radius:8px;
     cursor: pointer;
-    margin-bottom: 20px;
 }
-.dash-button:hover, .transaction-button:hover,
-.settings-button:hover  {
-    color: rgb(178, 180, 181);
+.dash-button:hover,
+.transaction-button:hover,
+.settings-button:hover{
+    background-color: rgba(255,255,255,0.15);
+    color:white;
 }
 
 .middle-section{
@@ -61,33 +61,26 @@ body{
     display: flex;
     gap: 20px;
 }
-.curr-balance, .expense{
-    height: 70px;
-    width: 170px;
-    background-color: rgb(241, 210, 210);
+.curr-balance,
+.total-income,
+.expense{
+    width: 220px;
+    height: 120px;
+
+    padding: 20px;
+    border-radius: 12px;
+
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
-    padding: 15px;
-    border-radius: 10px;
-    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .curr-balance p, .expense p,
 .total-income p{
     margin: 0;
 }
-.total-income{
-    height: 70px;
-    width: 120px;
-    background-color: rgb(187, 209, 215);
 
-    display: flex;
-    flex-direction: column;
-
-    padding: 15px;
-    border-radius: 10px;
-    gap: 20px;
-}
 .right-section{
     flex: 0 1 450px;
     padding: 20px;
@@ -100,27 +93,30 @@ body{
 /*-----Input container-----*/
 
 .input-container{
-    flex-wrap: wrap;
-    gap: 10px;
-    max-width: 600px;
-    box-sizing: border-box;
+    display:flex;
+    flex-wrap:wrap;
 
-    margin-top: 50px;
-    background-color: rgb(249, 249, 249);
-    display: flex;
-    width: 100%;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 2px 5px 10px 1px rgba(0, 0, 0, 0.2);
-    align-items: center;
+    gap:15px;
+
+    margin-top:20px;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+
+    max-width:700px;
 }
-.description-input, .amount-input{
-    flex: 1 1 150px;
-    padding: 8px;
-    font-size: 12px;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 2px 5px 10px 0.5px rgba(0, 0, 0, 0.1);
+.description-input,
+.amount-input{
+    flex:1 1 250px;
+
+    height:40px;
+
+    font-size:14px;
 }
 .description-input:focus, .amount-input:focus{
     outline: none;
@@ -139,14 +135,9 @@ body{
     margin-left: 5px;
 }
 .add-button{
-    margin-left: 10px;
-    padding: 5px;
-    width: 50px;
-    background-color: rgb(67, 212, 67);
-    color: white;
-    border: none;
-    border-radius: 2px;
-    font-weight:600;
+    width:120px;
+    height:40px;
+    border-radius:8px;
     cursor: pointer;
 }
 .add-button:hover{
@@ -156,22 +147,84 @@ body{
 
 /*-----Transaction-Section-----*/
 .transaction-container{
-    
-    padding: 10px;
-    max-width: 500px;
-    width: 100%;
-    height: 600px;
-    border-color: black;
-    border-style: solid;
-    border-width: 1px;
+    background:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+
+    padding:20px;
+
+    height:650px;
 }
 .transaction-header{
-    margin-top: 5px;
-    max-width: 450px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display:grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+
+    font-weight:bold;
+    padding:10px;
+    border-bottom:2px solid #ccc;
+
+    align-items:center;
+}
+
+.transaction-header div:nth-child(2),
+.transaction-header div:nth-child(3),
+.transaction-header div:nth-child(4),
+.transaction-header div:nth-child(5){
+    text-align:center;
 }
 .transaction-title{
     margin-left: 10px;
+}
+.transaction-row{
+    display:grid;
+
+    grid-template-columns:
+        1.5fr
+        1fr
+        1fr
+        1fr
+        1fr;
+
+    padding:12px 10px;
+
+    border-bottom:1px solid #ddd;
+
+    align-items:center;
+}
+.transaction-row div:nth-child(2),
+.transaction-row div:nth-child(3),
+.transaction-row div:nth-child(4),
+.transaction-row div:nth-child(5){
+    text-align:center;
+}
+.delete-button{
+    background-color:#ef4444;
+    color:white;
+
+    border:none;
+
+    padding:8px 10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+.delete-button:hover{
+    background-color:#dc2626;
+}
+.income-type{
+    color:#16a34a;
+    font-weight:600;
+}
+
+.expense-type{
+    color:#dc2626;
+    font-weight:600;
 }
