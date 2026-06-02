@@ -38,24 +38,30 @@
                         </div>
                     </div> <!--Expense-dashboard-->
 
-                    <div class="input-container">
+                    <div class="form-section">
 
-                        <input placeholder="Enter description" class="description-input" type="text">
+                        <h3>Add Transaction</h3>
+                        <div class="input-container">
 
-                        <input placeholder="Amount" class="amount-input" type="number">
+                            <input placeholder="Enter description" class="description-input" type="text">
 
-                        <label class="income-checkbox">
-                            <input type="radio" class="income-checkbox-text"> 
-                            <span class="label-text">Income</span>
-                        </label>
-                        <label class="expense-checkbox">
-                            <input type="radio" class="expense-checkbox-text"> 
-                            <span class="label-text">Expense</span>
-                        </label>
+                            <input placeholder="Amount" class="amount-input" type="number">
 
-                        <button class="add-button">Add</button>
+                            <div class="checkbox">
+                                <label class="income-checkbox">
+                                    <input type="radio" class="income-checkbox-text" name="TransactionType" value="income"> 
+                                    <span class="label-text">Income</span>
+                                </label>
+                                <label class="expense-checkbox">
+                                    <input type="radio" class="expense-checkbox-text" name="TransactionType" value="expense"> 
+                                    <span class="label-text">Expense</span>
+                                </label>
+                            </div>
+                            
+
+                            <button class="add-button">Add</button>
+                        </div>
                     </div>
-                    
 
                 </div> <!--middle-section-->
                 
@@ -71,9 +77,11 @@
                             <div class="transaction-title">Title</div>
                             <div>Date</div>
                             <div>Amount</div>
+                            <div>Type</div>
+                            <div>Action</div>
                         </div>
                         
-                        <div class="dynamic-transactoin">
+                        <div class="dynamic-transaction">
                             
                         </div>
                     </div> <!--transaction container-->
