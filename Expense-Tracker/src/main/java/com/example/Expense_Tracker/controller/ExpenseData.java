@@ -1,5 +1,7 @@
 package com.example.Expense_Tracker.controller;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,18 +16,18 @@ public class ExpenseData {
 
     public String title;
     public double amount;
-    public boolean isIncome;
-    public boolean isExpense;
+    public String type;
+    public LocalDate date;
 
     public ExpenseData(){
 
     }
 
-    public ExpenseData(String title, double amount, boolean isIncome, boolean isExpense){
+    public ExpenseData(String title, double amount, String type, LocalDate date){
         this.title = title;
         this.amount = amount;
-        this.isIncome = isIncome;
-        this.isExpense = isExpense;
+        this.type = type;
+        this.date = date;
     }
 
     public String getTitle(){
@@ -34,24 +36,31 @@ public class ExpenseData {
     public double getAmount(){
         return amount;
     }
-    public boolean isIncome(){
-        return isIncome;
+    public String getType(){
+        return type;
     }
-    public boolean isExpense(){
-        return isExpense;
+    public long getId(){
+        return id;
+    }
+    public LocalDate getDate(){
+        return date;
     }
 
+    
     public void setTitle(String title){
         this.title = title;
     }
     public void setAmount(double amount){
         this.amount = amount;
     }
-    public void isIncome(boolean isIncome){
-        this.isIncome = isIncome;
+    public void setType(String type){
+        this.type = type;
     }
-    public void isExpense(boolean isExpense){
-        this.isExpense = isExpense;
+    public void setId(long id){
+        this.id = id;
     }
-}
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
 
+}
