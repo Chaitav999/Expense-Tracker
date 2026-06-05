@@ -1,47 +1,68 @@
 loadData();
+loadSummary();
 
-const data = document.querySelector('.add-button')
+function sendData(){
+    const data = document.querySelector('.add-button')
 
-data.addEventListener('click', () => {
-    const description = document.querySelector('.description-input')
-    const desValue = description.value;
+    data.addEventListener('click', () => {
+        const description = document.querySelector('.description-input')
+        const desValue = description.value.trim();
 
-    if(desValue === ''){
-        return;
-    }
+        if(desValue === ''){
+            return;
+        }
 
-    const amount = document.querySelector('.amount-input')
-    const amt = amount.value;
+        const amount = document.querySelector('.amount-input')
+        const amt = amount.value;
 
-    if(amt === null){
-        return;
-    }
+        if(amt === ''){
+            return;
+        }
 
-    const selectedRadio = document.querySelector('input[name=TransactionType]:checked');
-    if(selectedRadio.value === null){
-        return;
-    }
+        let selectedRadio = document.querySelector('input[name=TransactionType]:checked');
+        if(selectedRadio === null){
+            return;
+        }
 
-    fetch("http://localhost:8080/transactions" , {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            title: desValue,
-            amount: amt,
-            type: selectedRadio.value
+
+        fetch("http://localhost:8080/transactions" , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: desValue,
+                amount: amt,
+                type: selectedRadio.value,
+            
+            })
+        }).then(res => res.json())
+        .then(data => {
+            loadData();
+            loadSummary();
         })
-    }).then(res => res.json())
+
+        description.value = '';
+        amount.value = '';
+        selectedRadio.checked = false;
+   })
+}
+
+function loadSummary(){
+    fetch("http://localhost:8080/summary")
+      .then(res => res.json())
       .then(data => {
-        loadData();
+        
+        document.querySelector('.balance')
+          .innerHTML = `$${data.currBal.toFixed(2)}`;
+
+        document.querySelector('.income-dashboard')
+          .innerHTML = `$${data.income.toFixed(2)}`;
+
+        document.querySelector('.expense-class')
+          .innerHTML = `$${data.expense.toFixed(2)}`;
       })
-
-      desValue.innerHTML = '';
-      amt.value = '';
-      selectedRadio.value = '';
-})
-
+}
 
 function loadData(){
 
@@ -52,14 +73,15 @@ function loadData(){
         let displayData = ''
 
         data.forEach((element) => {
+
             const html = `
                 <div class="transaction-row">
 
                     <div>${element.title}</div>
 
-                    <div>May 2026</div>
+                    <div class="date-column">${element.date}</div>
 
-                    <div>$${element.amount}</div>
+                    <div>$${element.amount.toFixed(2)}</div>
 
                     <div class="${element.type}-type">
                         ${element.type}
@@ -78,7 +100,7 @@ function loadData(){
 
             displayData += html;
         });
-
+          
         document.querySelector('.dynamic-transaction')
           .innerHTML = displayData;
       })
@@ -88,7 +110,10 @@ function deleteTransaction(idx){
 
     fetch(`http://localhost:8080/transactions/${idx}`, {
         method: "DELETE"
-    }).then(res => {loadData()})
-      .catch(console.error("error")
-      );
+    }).then(res => {
+        loadData();
+        loadSummary();
+    })
 }
+
+

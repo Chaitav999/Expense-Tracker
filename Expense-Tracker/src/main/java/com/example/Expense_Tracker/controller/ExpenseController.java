@@ -1,5 +1,6 @@
 package com.example.Expense_Tracker.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Expense_Tracker.repository.DataRepository;
 
 
+
 @CrossOrigin(origins="*")
 @RestController
 public class ExpenseController {
     
     private DataRepository repository;
+    
 
     public ExpenseController(DataRepository repository){
         this.repository = repository;
@@ -29,11 +32,30 @@ public class ExpenseController {
         return repository.findAll();
     }
 
+     @GetMapping("/summary")
+    public Summary calculateSummary() {      //calculates expense, income and current balance
+        List<ExpenseData> transactions = repository.findAll();
+        Summary summary = new Summary();
+        
+        for(ExpenseData transaction : transactions){
+            if(transaction.getType().equals("income")){
+                summary.income += transaction.getAmount();
+            }
+            
+            if(transaction.getType().equals("expense")){
+                summary.expense += transaction.getAmount();
+            }
+        }
+        summary.currBal = summary.income - summary.expense;
+
+        return summary;
+    }
+    
+
     @PutMapping("transactions/{id}")
     public List<ExpenseData> putMethodName(@PathVariable long id, @RequestBody ExpenseData data) {
         //TODO: process PUT request
 
-        
         repository.save(data);
         
         return repository.findAll();
@@ -42,6 +64,8 @@ public class ExpenseController {
     @PostMapping("/transactions")
     public List<ExpenseData> postMethodName(@RequestBody ExpenseData data) {
         //TODO: process POST request
+
+        data.setDate(LocalDate.now());
         
         repository.save(data);
 
