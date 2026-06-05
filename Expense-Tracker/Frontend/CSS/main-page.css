@@ -204,12 +204,17 @@ body{
     text-align:center;
 }
 .delete-button{
-    background-color:#ef4444;
-    color:white;
+    background-color:#ffffff;
+    display: flex;
+    width: 35px;
+    height: 35px;
+    
+    align-items: center;
+    justify-content: center;
 
     border:none;
 
-    padding:8px 10px;
+    padding: 10px;
 
     border-radius:8px;
 
@@ -217,9 +222,18 @@ body{
 
     font-weight:600;
 }
+.delete-img{
+    padding: 5px;
+    display: flex;
+    height: 22px;
+    width: 25px;
+}
+.delete-button-div{
+    padding: 5px;
+}
 
 .delete-button:hover{
-    background-color:#dc2626;
+    background-color: #e6d8d8;
 }
 .income-type{
     color:#16a34a;

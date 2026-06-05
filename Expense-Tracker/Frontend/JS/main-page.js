@@ -87,11 +87,11 @@ function loadData(){
                         ${element.type}
                     </div>
 
-                    <div>
+                    <div class="delete-button-div">
                         <button class="delete-button" onclick="
                           deleteTransaction(${element.id});
                         ">
-                            Delete
+                            <img class="delete-img" src="Images/delete.png">
                         </button>
                     </div>
 
