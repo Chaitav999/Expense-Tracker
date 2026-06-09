@@ -14,236 +14,62 @@ body{
 .header-1, .header-2{
     margin-top: 0;
 }
-
-.left-section{
-    width: 220px;
-    flex-shrink: 0;
-    height: 100vh;
-
-    background-color: rgb(80,42,186);
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-
-    padding-top:30px;
-}
-.logo-img{
-    height: 100px;
-    width: 100px;
-    background: transparent;
-    margin-bottom: 50px;
-}
-.dash-button,
-.transaction-button,
-.settings-button{
-    width: 180px;
-    text-align:left;
-    padding:12px 20px;
-    border-radius:8px;
-    cursor: pointer;
-}
-.dash-button:hover,
-.transaction-button:hover,
-.settings-button:hover{
-    background-color: rgba(255,255,255,0.15);
-    color:white;
+.header-1{
+    color: #1e293b;
+    font-size: 40px;
+    font-weight: 700;
 }
 
-.middle-section{
-    flex: 1;
-    min-width: 0px;
-    padding: 20px;
-    border-radius: 10px;
-   
-}
-.expense-dashboard{
-    display: flex;
-    gap: 20px;
-}
-.curr-balance,
-.total-income,
-.expense{
-    width: auto;
-    max-width: 220px;
-    height: 120px;
+/*-----  Updated layout after the transaction button is pressed  -----*/
 
-    padding: 20px;
-    border-radius: 12px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-.curr-balance p, .expense p,
-.total-income p{
-    margin: 0;
-}
-
+/* Smooth animation */
+.middle-section,
 .right-section{
-    flex: 0 1 450px;
-    padding: 20px;
-    border-radius: 10px;
+    transition: all 0.4s ease;
 }
-.header-2{
-    
+.middle-section{
+    transform: translateX(0);
 }
 
-/*-----Input container-----*/
-
-.input-container{
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:15px;
-
-    margin-top:20px;
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:12px;
-
-    box-shadow:0 2px 10px rgba(0,0,0,0.15);
-
-    max-width:700px;
+.transaction-view .middle-section{
+    transform: translateX(-30px);
 }
-.description-input,
-.amount-input{
-    flex:1 1 250px;
-
-    height:40px;
-
-    font-size:14px;
-}
-.description-input:focus, .amount-input:focus{
-    outline: none;
-}
-.income-checkbox, .expense-checkbox{
-    display: flex;
-    align-items: center;
-    width: 80px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-.income-checkbox-text, .expense-checkbox-text{
-    cursor: pointer;
-}
-.label-text{
-    margin-left: 5px;
-}
-.add-button{
-    width:120px;
-    height:40px;
-    border-radius:8px;
-    cursor: pointer;
-}
-.add-button:hover{
-    background-color: rgb(65, 163, 65);
-    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.1);
+/* Transaction mode */
+.transaction-view .middle-section{
+    flex: 0;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
 }
 
-/*-----Transaction-Section-----*/
-.transaction-container{
-    background:white;
-
-    border:none;
-
-    border-radius:12px;
-
-    box-shadow:0 2px 10px rgba(0,0,0,0.15);
-
-    padding:20px;
-
-    height:650px;
-    overflow-y: auto;
-}
-.transaction-header{
-    display:grid;
-    grid-template-columns: 2fr 1.5fr 2fr 1.5fr 1fr;
-
-    font-weight:bold;
-    padding:10px;
-    border-bottom:2px solid #ccc;
-
-    align-items:center;
+.transaction-view .right-section{
+    flex: 1;
+    max-width: none;
 }
 
-.transaction-header div:nth-child(2),
-.transaction-header div:nth-child(3),
-.transaction-header div:nth-child(4),
-.transaction-header div:nth-child(5){
-    text-align:center;
-}
-.transaction-title{
-    margin-left: 10px;
-}
-.transaction-row{
-    display:grid;
+/* ==========================
+   Transaction View Animation
+   ========================== */
 
-    grid-template-columns:
-        2fr
-        1.5fr
-        2fr
-        1.5fr
-        1fr;
-
-    padding:12px 10px;
-
-    border-bottom:1px solid #ddd;
-
-    align-items:center;
-}
-.transaction-row div:nth-child(2),
-.transaction-row div:nth-child(3),
-.transaction-row div:nth-child(4),
-.transaction-row div:nth-child(5){
-    text-align:center;
-}
-.delete-button{
-    background-color:#ffffff;
-    display: flex;
-    width: 35px;
-    height: 35px;
-    
-    align-items: center;
-    justify-content: center;
-
-    border:none;
-
-    padding: 10px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    font-weight:600;
-}
-.delete-img{
-    padding: 5px;
-    display: flex;
-    height: 22px;
-    width: 25px;
-}
-.delete-button-div{
-    padding: 5px;
+.middle-section,
+.right-section{
+    transition: all 0.4s ease;
 }
 
-.delete-button:hover{
-    background-color: #e6d8d8;
-}
-.income-type{
-    color:#16a34a;
-    font-weight:600;
+.transaction-view .middle-section{
+    flex: 0;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    pointer-events: none;
 }
 
-.expense-type{
-    color:#dc2626;
-    font-weight:600;
+.transaction-view .right-section{
+    flex: 1;
+    max-width: none;
 }
-.date-column{
-    white-space: nowrap;
+.right-section{
+    margin-right: 50px;
 }

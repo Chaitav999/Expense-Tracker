@@ -1,0 +1,125 @@
+
+.middle-section{
+    flex: 1;
+    min-width: 0;
+    max-width: 1000px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.expense-dashboard{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.curr-balance,
+.total-income,
+.expense{
+    width: 220px;
+    height: 140px;
+
+    padding: 20px;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+    transition: transform 0.2s ease;
+}
+.curr-balance{
+    background: linear-gradient(135deg,#9394ca,#8b5cf6);
+    color:white;
+}
+
+.total-income{
+    background: linear-gradient(135deg,#7ec9b0,#34d399);
+    color:white;
+}
+
+.expense{
+    background: linear-gradient(
+        135deg,
+        #d06e6e,
+        #ef4444
+    );
+    color:white;
+}
+.curr-balance:hover,
+.total-income:hover,
+.expense:hover{
+    transform: translateY(-4px);
+}
+.balance,
+.income-dashboard,
+.expense-class{
+    font-size: 32px;
+    font-weight: bold;
+}
+.curr-balance p, .expense p,
+.total-income p{
+    margin: 0;
+}
+
+.right-section{
+    flex: 1;
+    max-width: 450px;
+    padding: 20px;
+    border-radius: 10px;
+}
+/*-----Input container-----*/
+
+.input-container{
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-top:20px;
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+
+    max-width:900px;
+}
+.description-input,
+.amount-input{
+    padding: 5px;
+    flex:1 1 150px;
+
+    height:40px;
+
+    font-size:14px;
+}
+.description-input:focus, .amount-input:focus{
+    outline: none;
+}
+.income-checkbox, .expense-checkbox{
+    display: flex;
+    align-items: center;
+    width: 80px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.income-checkbox-text, .expense-checkbox-text{
+    cursor: pointer;
+}
+.label-text{
+    margin-left: 5px;
+}
+.add-button{
+    width:120px;
+    height:40px;
+    border-radius:8px;
+    cursor: pointer;
+}
+.add-button:hover{
+    background-color: rgb(65, 163, 65);
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.1);
+}
