@@ -92,7 +92,9 @@ function loadData(){
                           deleteTransaction(${element.id});
                         ">
                             <img class="delete-img" src="Images/delete.png">
+                            
                         </button>
+                        <div class="three-dots">&#8942</div>
                     </div>
 
                 </div>
@@ -115,5 +117,13 @@ function deleteTransaction(idx){
         loadSummary();
     })
 }
+
+// ----- After clicking transaction button -----
+const transactionBtn = document.querySelector('.transaction-button');
+
+transactionBtn.addEventListener('click', () => {
+    document.querySelector('.css-body')
+        .classList.toggle('transaction-view');
+});
 
 
