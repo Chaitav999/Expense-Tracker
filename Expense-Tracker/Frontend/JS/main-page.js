@@ -88,12 +88,7 @@ function loadData(){
                     </div>
 
                     <div class="delete-button-div">
-                        <button class="delete-button" onclick="
-                          deleteTransaction(${element.id});
-                        ">
-                            <img class="delete-img" src="Images/delete.png">
-                            
-                        </button>
+                        
 
                         <div class="menu-container">
                             <button class="three-dots" onclick="threeDots(this)">
@@ -102,7 +97,12 @@ function loadData(){
 
                             <div class="dropdown-options">
                                 <button >Edit</button>
-                                <button>Delete</button>
+
+                                <button class="delete-button" onclick="
+                                  deleteTransaction(${element.id});
+                                ">
+                                  <img class="delete-img" src="Images/delete.png">
+                                </button>
                             </div>
                         </div>
                     </div>
