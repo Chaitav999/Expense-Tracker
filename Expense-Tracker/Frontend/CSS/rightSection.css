@@ -87,6 +87,8 @@
     width: 25px;
 }
 .delete-button-div{
+    display: flex;
+    align-items: center;
     padding: 5px;
 }
 
@@ -104,4 +106,67 @@
 }
 .date-column{
     white-space: nowrap;
+}
+.menu-container{
+    position: relative;
+    display: inline-block;
+}
+.dropdown-options{
+    position:absolute;
+    top:100%;
+    right:0;
+
+    min-width:120px;
+
+    background:white;
+
+    border-radius:8px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+    overflow:hidden;
+
+    display:none;
+}
+.dropdown-options.show{
+    display: block;
+}
+.dropdown-options button{
+    width:100%;
+
+    border:none;
+
+    background:white;
+
+    padding:10px 14px;
+
+    text-align:left;
+
+    cursor:pointer;
+}
+
+.dropdown-options button:hover{
+    background:#f3f4f6;
+}
+.three-dots{
+    width:32px;
+    height:32px;
+
+    border:none;
+    border-radius:50%;
+
+    background:transparent;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.three-dots:hover{
+    background:#f3f4f6;
 }

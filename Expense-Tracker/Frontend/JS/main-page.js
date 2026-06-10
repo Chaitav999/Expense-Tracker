@@ -1,5 +1,5 @@
-loadData();
-loadSummary();
+loadData(); //load transaction
+loadSummary(); //loads summary of the account
 
 function sendData(){
     const data = document.querySelector('.add-button')
@@ -94,7 +94,17 @@ function loadData(){
                             <img class="delete-img" src="Images/delete.png">
                             
                         </button>
-                        <div class="three-dots">&#8942</div>
+
+                        <div class="menu-container">
+                            <button class="three-dots" onclick="threeDots(this)">
+                              &#8942
+                            </button>
+
+                            <div class="dropdown-options">
+                                <button >Edit</button>
+                                <button>Delete</button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -126,4 +136,35 @@ transactionBtn.addEventListener('click', () => {
         .classList.toggle('transaction-view');
 });
 
+/*----- shows the dropdown menu after clicking three dots at transaction row -----*/
+function threeDots(button){
+
+    const dropdownContainer = button.parentElement.querySelector('.dropdown-options'); // gets the parentelement of the clicked button
+    const drop = dropdownContainer.classList.contains("show"); //boolean
+
+    const dropDown = document.querySelectorAll('.dropdown-options') // gets all the dropdown option class 
+
+    dropDown.forEach(list => {
+        list.classList.remove("show") // hides all the dropdown menus
+    })
+
+    if(!drop){
+        dropdownContainer.classList.add("show");
+    }
+}
+
+document.addEventListener('click', (event) => {
+
+    const clickedInsideMenu =
+        event.target.closest('.menu-container');
+
+    if(!clickedInsideMenu){
+
+        document.querySelectorAll('.dropdown-options')
+            .forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+    }
+
+});
 
