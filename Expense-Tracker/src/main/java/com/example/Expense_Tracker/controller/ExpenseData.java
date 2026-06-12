@@ -14,10 +14,10 @@ public class ExpenseData {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    public String title;
-    public double amount;
-    public String type;
-    public LocalDate date;
+    private String title;
+    private double amount;
+    private String type;
+    private LocalDate date;
 
     public ExpenseData(){
 

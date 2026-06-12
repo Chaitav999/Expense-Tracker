@@ -56,7 +56,13 @@ public class ExpenseController {
     public List<ExpenseData> putMethodName(@PathVariable long id, @RequestBody ExpenseData data) {
         //TODO: process PUT request
 
-        repository.save(data);
+        ExpenseData transData = repository.findById(id).get();
+
+        transData.setTitle(data.getTitle());
+        transData.setAmount(data.getAmount());
+        transData.setType(data.getType());
+
+        repository.save(transData);
         
         return repository.findAll();
     }
