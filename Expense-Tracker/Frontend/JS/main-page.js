@@ -1,29 +1,28 @@
+displayloader();
 loadData(); //load transaction
 loadSummary(); //loads summary of the account
+setTimeout(() => {
+    hideLoader();
+}, 1000);
 
 function sendData(){
+    displayloader();
     const data = document.querySelector('.add-button')
 
     data.addEventListener('click', () => {
         const description = document.querySelector('.description-input')
         const desValue = description.value.trim();
 
-        if(desValue === ''){
-            return;
-        }
+        if(desValue === ''){ return; }
 
         const amount = document.querySelector('.amount-input')
         const amt = amount.value;
 
-        if(amt === ''){
-            return;
-        }
+        if(amt === ''){ return; }
 
         let selectedRadio = document.querySelector('input[name=TransactionType]:checked');
-        if(selectedRadio === null){
-            return;
-        }
 
+        if(selectedRadio === null){ return; }
 
         fetch("http://localhost:8080/transactions" , {
             method: 'POST',
@@ -31,21 +30,26 @@ function sendData(){
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+
                 title: desValue,
                 amount: amt,
                 type: selectedRadio.value,
             
-            })
+            }) //body closing
+
         }).then(res => res.json())
-        .then(data => {
+          .then(data => {
             loadData();
             loadSummary();
-        })
+        }) //.then closing
 
         description.value = '';
         amount.value = '';
         selectedRadio.checked = false;
-   })
+
+   }) //eventlistener closing
+
+   setTimeout(() => { hideLoader(); }, 1000);
 }
 
 function loadSummary(){
@@ -64,11 +68,14 @@ function loadSummary(){
       })
 }
 
+let transactions = []
 function loadData(){
 
     fetch("http://localhost:8080/transactions")
       .then(res => res.json())
       .then(data => {
+
+        transactions = data;
 
         let displayData = ''
 
@@ -87,16 +94,15 @@ function loadData(){
                         ${element.type}
                     </div>
 
-                    <div class="delete-button-div">
-                        
-
                         <div class="menu-container">
                             <button class="three-dots" onclick="threeDots(this)">
                               &#8942
                             </button>
 
                             <div class="dropdown-options">
-                                <button >Edit</button>
+                                <button class="edit-button" onclick="editTransaction(${element.id})">
+                                  <img class="edit-img" src="Images/edit-icon.png">
+                                </button>
 
                                 <button class="delete-button" onclick="
                                   deleteTransaction(${element.id});
@@ -105,8 +111,6 @@ function loadData(){
                                 </button>
                             </div>
                         </div>
-                    </div>
-
                 </div>
             `;
 
@@ -119,13 +123,14 @@ function loadData(){
 }
 
 function deleteTransaction(idx){
-
+    displayloader()
     fetch(`http://localhost:8080/transactions/${idx}`, {
         method: "DELETE"
     }).then(res => {
         loadData();
         loadSummary();
     })
+    hideLoader();
 }
 
 // ----- After clicking transaction button -----
@@ -165,6 +170,79 @@ document.addEventListener('click', (event) => {
                 dropdown.classList.remove('show');
             });
     }
-
 });
 
+let editId = null;
+function editTransaction(id){
+    editId = id;
+    const transaction = transactions.find(element => element.id === id);
+    
+    const displayPopup = document.getElementById("overlay");
+    displayPopup.classList.remove("hidden");
+
+    document.getElementById("edit-title")
+      .value = transaction.title;
+    document.getElementById("edit-amount")
+      .value = transaction.amount;
+    document.getElementById("edit-date")
+      .value = transaction.date;
+
+    if(transaction.type === "expense"){
+        document.getElementById("edit-expense")
+          .checked = true;
+    } else{
+        document.getElementById("edit-income")
+          .checked = true;
+    }
+}
+
+function sendUpdatedTransaction(){
+    displayloader()
+    const newTitle = document.querySelector('.title-input').value;
+
+    const newAmt = document.querySelector('.amt-input').value;
+
+    const newType = document.querySelector('input[name=edit-type]:checked');
+
+    fetch(`http://localhost:8080/transactions/${editId}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type' : 'application/JSON'
+        },
+        body: JSON.stringify({
+            title: newTitle,
+            amount: newAmt,
+            type: newType.value,
+        })
+    })
+      .then(data => {
+        loadData();
+        loadSummary();
+      })
+    hideLoader()  
+    successMessage();
+    hidePopup();
+}
+
+function hidePopup(){
+    const hidePopup = document.getElementById("overlay");
+      hidePopup.classList.add("hidden");
+}
+
+function successMessage(){
+    const message = document.querySelector('.edit-successful');
+
+    message.classList.remove("lost");
+
+    setTimeout(() => {
+        message.classList.add("lost");
+    }, 4000);
+}
+
+/*-----Adding the loading effect -----*/
+function displayloader(){
+    document.querySelector('.loading-effect').classList.remove("hidden-loader");
+}
+function hideLoader(){
+    document.querySelector('.loading-effect').classList.add("hidden-loader");
+}
