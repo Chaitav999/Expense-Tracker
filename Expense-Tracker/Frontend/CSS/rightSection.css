@@ -112,24 +112,27 @@
     display: inline-block;
 }
 .dropdown-options{
-    position:absolute;
-    top:100%;
-    right:0;
+    position: absolute;
+    top: 100%;
+    right: 0;
 
-    min-width:120px;
+    width: 70px;
 
-    background:white;
+    background: white;
 
-    border-radius:8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
 
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    display: none;
 
-    overflow:hidden;
-
-    display:none;
+    padding: 8px;
+    z-index: 1000;
+    gap: 5px;
 }
 .dropdown-options.show{
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .dropdown-options button{
     width:100%;
@@ -169,4 +172,45 @@
 
 .three-dots:hover{
     background:#f3f4f6;
+}
+
+.edit-button{
+    background-color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35px;
+    height: 35px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+.edit-button,
+.delete-button{
+    width: 50px;
+    height: 40px;
+
+    border: none;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+.edit-button:hover{
+    background-color: #e6d8d8;
+}
+
+.edit-img, .delete-img{
+    width: 20px;
+    height: 18px;
+
+    object-fit: contain;
+    display: block;
 }

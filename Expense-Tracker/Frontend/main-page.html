@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="CSS/leftSection.css">
         <link rel="stylesheet" href="CSS/middleSection.css">
         <link rel="stylesheet" href="CSS/rightSection.css">
+        <link rel="stylesheet" href="CSS/editPopup.css">
         <title>Expense Tracker</title>
         
     </head>
@@ -17,7 +18,7 @@
 
                     <button class="dash-button">DASHBOARD</button>
                     <button class="transaction-button">TRANSACTIONS</button>
-                    <button class="settings-button">SETTINGS</button>
+                    <button class="settings-button">SUMMARY</button>
                 </div>
 
                 <div class="middle-section">
@@ -91,6 +92,63 @@
                 </div> <!--right-section-->
             </div> <!--css-body-->
         </section>
+
+        <!--Edit popup apperance after clicking the edit button-->
+
+        <div id="overlay" class="overlay hidden">
+
+            <div class="edit-popup">
+
+                <h2>Edit Transaction</h2>
+
+                <label class="edit-popup-headings">Title</label>
+                <input type="text" class="title-input" id="edit-title">
+
+                <label class="edit-popup-headings">Amount</label>
+                <input type="number" class="amt-input" id="edit-amount">
+
+                <label class="edit-popup-headings">Type</label>
+
+                <div class="radio-group">
+                    <input type="radio"
+                        name="edit-type"
+                        id="edit-income"
+                        value="income">
+
+                    <label for="edit-income">Income</label>
+
+                    <input type="radio"
+                        name="edit-type"
+                        id="edit-expense"
+                        value="expense">
+
+                    <label for="edit-expense">Expense</label>
+                </div>
+
+                <label class="edit-popup-headings">Date</label>
+                <input type="date"
+                    class="date-input"
+                    id="edit-date"
+                    readonly>
+
+                <div class="buttons">
+                    <button id="save-btn" onclick="sendUpdatedTransaction()">Save</button>
+                    <button id="cancel-btn" onclick="hidePopup()">Cancel</button>
+                </div>
+
+            </div> <!--edit-popup-->
+        </div> <!--overlay-->
+
+        <div class="edit-successful lost">
+            <div class="edit-successful-border">
+                <img class="transaction-success-img" src="Images/success.png">
+                <p class="transaction-success-label">Transaction updated</p>
+            </div>
+        </div>
+
+        <div class="loading-effect hidden-loader">
+            <div class="spinner"></div>
+        </div>
 
         <script src="JS/main-page.js"></script>
     </body>

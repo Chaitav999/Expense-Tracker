@@ -90,11 +90,12 @@
 }
 .description-input,
 .amount-input{
+    border: none;
     padding: 5px;
     flex:1 1 150px;
 
     height:40px;
-
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
     font-size:14px;
 }
 .description-input:focus, .amount-input:focus{
@@ -120,6 +121,8 @@
     cursor: pointer;
 }
 .add-button:hover{
-    background-color: rgb(65, 163, 65);
+    border: none;
+    background-color: rgb(99, 196, 99);
     box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.1);
+    color: white;
 }
