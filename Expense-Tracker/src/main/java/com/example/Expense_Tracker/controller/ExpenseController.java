@@ -1,6 +1,7 @@
 package com.example.Expense_Tracker.controller;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Expense_Tracker.repository.DataRepository;
+
 
 
 
@@ -46,6 +49,32 @@ public class ExpenseController {
                 summary.expense += transaction.getAmount();
             }
         }
+        summary.currBal = summary.income - summary.expense;
+
+        return summary;
+    }
+
+    @GetMapping("/monthly-summary")
+    public Summary calculateMonthlyData(@RequestParam int month, @RequestParam int year) {
+
+        Summary summary = new Summary();
+        List<ExpenseData> transactions = repository.findAll();
+        
+        LocalDate startDate = LocalDate.of(year, month, 1);
+        LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
+        
+        for(ExpenseData transaction : transactions){
+            LocalDate transDate = transaction.getDate();
+
+            if(!transDate.isBefore(startDate) && !transDate.isAfter(endDate)){
+                if(transaction.getType().equals("income")){
+                    summary.income += transaction.getAmount();
+                }else if (transaction.getType().equals("expense")) {
+                    summary.expense += transaction.getAmount();
+                }
+            }
+        }
+
         summary.currBal = summary.income - summary.expense;
 
         return summary;
