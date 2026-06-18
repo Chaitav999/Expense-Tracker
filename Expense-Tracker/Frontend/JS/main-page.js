@@ -281,3 +281,27 @@ document.querySelector('.dash-button')
         .classList.remove('summary-open');
 
 });
+
+function getMonthlySummary(){
+    const month = document.querySelector('.month-select').value;
+    const year = document.querySelector('.year-select').value;
+
+    if(month === '' || year === ''){
+        alert("Please select a date and a year!");
+        return;
+    }
+
+    fetch(`http://localhost:8080/monthly-summary?month=${month}&year=${year}`)
+      .then(res => res.json())
+      .then(data => {
+        
+        document.querySelector('.monthly-balance')
+         .innerHTML = `$${data.currBal.toFixed(2)}`;
+
+        document.querySelector('.monthly-expense')
+         .innerHTML = `$${data.expense.toFixed(2)}`;
+
+        document.querySelector('.monthly-income')
+         .innerHTML = `$${data.income.toFixed(2)}`;
+      });
+}
