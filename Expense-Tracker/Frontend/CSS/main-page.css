@@ -9,7 +9,7 @@ body{
     flex-shrink: 1;
     gap: 20px;
     height: 100vh;
-    
+    position: relative;
 }
 .header-1, .header-2{
     margin-top: 0;

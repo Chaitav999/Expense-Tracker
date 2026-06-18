@@ -172,6 +172,7 @@ document.addEventListener('click', (event) => {
     }
 });
 
+
 let editId = null;
 function editTransaction(id){
     editId = id;
@@ -236,7 +237,7 @@ function successMessage(){
 
     setTimeout(() => {
         message.classList.add("lost");
-    }, 4000);
+    }, 2000);
 }
 
 /*-----Adding the loading effect -----*/
@@ -246,3 +247,37 @@ function displayloader(){
 function hideLoader(){
     document.querySelector('.loading-effect').classList.add("hidden-loader");
 }
+
+/*-----Showing summary tab-----*/
+
+function showSummaryTab(){
+
+    document
+        .querySelector('.css-body')
+        .classList.add('summary-open');
+}
+
+/*-----showing active button-----*/
+const sidebarButtons = document.querySelectorAll(
+    '.dash-button, .transaction-button, .summary-button'
+);
+
+function setActive(clickedButton){
+
+    sidebarButtons.forEach(button => {
+        button.classList.remove('active-button');
+    });
+
+    clickedButton.classList.add('active-button');
+}
+
+/* -----Show dashboard again----- */
+
+document.querySelector('.dash-button')
+.addEventListener('click', () => {
+
+    document
+        .querySelector('.css-body')
+        .classList.remove('summary-open');
+
+});

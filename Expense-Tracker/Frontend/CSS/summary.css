@@ -1,0 +1,148 @@
+.middle-section,
+.right-section{
+    transition: all .45s ease;
+}
+
+.summary-section{
+
+    flex:1;
+
+    opacity:0;
+
+    transform:translateY(100px);
+
+    transition:
+        opacity .45s ease,
+        transform .45s ease;
+
+    pointer-events:none;
+
+    position:absolute;
+
+    left:240px;
+    right:20px;
+
+    top:0;
+}
+
+.summary-header{
+    margin-bottom: 30px;
+}
+.summary-filter-container{
+    display:flex;
+    gap:15px;
+
+    margin-bottom:30px;
+}
+
+.month-select,
+.year-select{
+    width:180px;
+    height:40px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.show-summary-button{
+    height:40px;
+    padding:0 20px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#4f46e5;
+    color:white;
+
+    cursor:pointer;
+}
+
+.summary-dashboard{
+    display:flex;
+    gap:25px;
+    margin-bottom:30px;
+}
+
+.summary-card{
+    width:260px;
+    height:180px;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.income-card{
+    background:linear-gradient(
+        135deg,
+        #10b981,
+        #34d399
+    );
+}
+
+.expense-card{
+    background:linear-gradient(
+        135deg,
+        #ef4444,
+        #f87171
+    );
+}
+
+.balance-card{
+    background:linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
+}
+
+.summary-card p{
+    font-size:22px;
+    margin:0;
+}
+
+.monthly-income,
+.monthly-expense,
+.monthly-balance{
+    font-size:40px;
+    font-weight:bold;
+}
+
+.monthly-transaction-container{
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    min-height:350px;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.1);
+}
+
+.summary-open .middle-section,
+.summary-open .right-section{
+
+    opacity:0;
+
+    transform:translateY(-100px);
+
+    pointer-events:none;
+}
+
+.summary-open .summary-section{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+    pointer-events:auto;
+
+    padding:30px;
+}
