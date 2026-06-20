@@ -2,6 +2,7 @@ package com.example.Expense_Tracker.controller;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -54,6 +55,8 @@ public class ExpenseController {
         return summary;
     }
 
+
+    /*-----Return the month's income, expense and currBal----- */
     @GetMapping("/monthly-summary")
     public Summary calculateMonthlyData(@RequestParam int month, @RequestParam int year) {
 
@@ -74,10 +77,27 @@ public class ExpenseController {
                 }
             }
         }
-
         summary.currBal = summary.income - summary.expense;
-
         return summary;
+    }
+    
+    @GetMapping("/monthly-summary-transactionHistory")
+    public List<ExpenseData> getMethodName(@RequestParam int month, @RequestParam int year) {
+        
+        List<ExpenseData> transactions = repository.findAll();
+        List<ExpenseData> sendData = new ArrayList<>();
+
+        LocalDate startDate = LocalDate.of(year, month, 1);
+        LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
+
+        for(ExpenseData transaction : transactions){
+            LocalDate transactionDate = transaction.getDate();
+
+            if(!transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate)){
+                sendData.add(transaction);
+            }
+        }
+            return sendData;
     }
     
 
