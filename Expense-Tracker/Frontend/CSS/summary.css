@@ -115,15 +115,15 @@
 
 .monthly-transaction-container{
     background:white;
-
     border-radius:15px;
-
     padding:20px;
-
-    min-height:350px;
+    min-height: 200px;
+    max-height:450px;
 
     box-shadow:
         0 2px 10px rgba(0,0,0,0.1);
+
+    overflow-y: auto;
 }
 
 .summary-open .middle-section,
@@ -145,4 +145,234 @@
     pointer-events:auto;
 
     padding:30px;
+}
+
+/*----Designing the transaction history container-----*/
+
+/*-----Transaction-Section-----*/
+.summary-transaction-container{
+    background:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+
+    padding:20px;
+    width: 100%;
+    min-height: 350px;
+    max-height: 510px;
+    overflow-y: auto;
+    
+}
+
+.summary-transaction-mainTitle{
+    width: 100%;
+    text-align: center;
+    
+    margin-bottom:30px;
+}
+
+.summary-transaction-header{
+    display:grid;
+    grid-template-columns: 2fr 1.5fr 2fr 1.5fr 1fr;
+
+    font-weight:bold;
+    padding:10px;
+    border-bottom:2px solid #ccc;
+
+    align-items:center;
+}
+.hide-summary{
+    display: none;
+}
+.summary-transaction-header div:nth-child(2),
+.summary-transaction-header div:nth-child(3),
+.summary-transaction-header div:nth-child(4),
+.summary-transaction-header div:nth-child(5){
+    text-align:center;
+}
+.summary-transaction-title{
+    margin-left: 10px;
+}
+.transaction-row{
+    display:grid;
+
+    grid-template-columns:
+        2fr
+        1.5fr
+        2fr
+        1.5fr
+        1fr;
+
+    padding:12px 10px;
+
+    border-bottom:1px solid #ddd;
+
+    align-items:center;
+}
+.transaction-row div:nth-child(2),
+.transaction-row div:nth-child(3),
+.transaction-row div:nth-child(4),
+.transaction-row div:nth-child(5){
+    text-align:center;
+}
+.transaction-row div:nth-child(5){
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.delete-button{
+    background-color:#ffffff;
+    display: flex;
+    width: 35px;
+    height: 35px;
+    
+    align-items: center;
+    justify-content: center;
+
+    border:none;
+
+    padding: 10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+.delete-img{
+    padding: 5px;
+    display: flex;
+    height: 22px;
+    width: 25px;
+}
+.delete-button-div{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.delete-button:hover{
+    background-color: #e6d8d8;
+}
+.income-type{
+    color:#88cda1;
+    font-weight:600;
+}
+
+.expense-type{
+    color:#b43030;
+    font-weight:600;
+}
+.date-column{
+    white-space: nowrap;
+}
+.menu-container{
+    position: relative;
+    display: inline-block;
+}
+.dropdown-options{
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    width: 70px;
+
+    background: white;
+
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+
+    display: none;
+
+    padding: 8px;
+    z-index: 1000;
+    gap: 5px;
+}
+.dropdown-options.show{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dropdown-options button{
+    width:100%;
+
+    border:none;
+
+    background:white;
+
+    padding:10px 14px;
+
+    text-align:left;
+
+    cursor:pointer;
+}
+
+.dropdown-options button:hover{
+    background:#f3f4f6;
+}
+.three-dots{
+    width:32px;
+    height:32px;
+
+    border:none;
+    border-radius:50%;
+
+    background:transparent;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.three-dots:hover{
+    background:#f3f4f6;
+}
+
+.edit-button{
+    background-color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35px;
+    height: 35px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+.edit-button,
+.delete-button{
+    width: 50px;
+    height: 40px;
+
+    border: none;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+.edit-button:hover{
+    background-color: #e6d8d8;
+}
+
+.edit-img, .delete-img{
+    width: 20px;
+    height: 18px;
+
+    object-fit: contain;
+    display: block;
 }

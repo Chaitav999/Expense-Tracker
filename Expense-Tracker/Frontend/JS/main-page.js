@@ -82,6 +82,7 @@ function loadData(){
         data.forEach((element) => {
 
             const html = `
+
                 <div class="transaction-row">
 
                     <div>${element.title}</div>
@@ -304,4 +305,79 @@ function getMonthlySummary(){
         document.querySelector('.monthly-income')
          .innerHTML = `$${data.income.toFixed(2)}`;
       });
+
+      getTransactionHistory(month, year);
+}
+
+
+function getTransactionHistory(month, year){
+    const selectedMonth = document.querySelector('.month-select');
+    const monthName = selectedMonth.options[selectedMonth.selectedIndex].text;
+    
+    const selectedYear = document.querySelector('.year-select');
+    const yearNum = selectedYear.options[selectedYear.selectedIndex].text;
+
+    fetch(`http://localhost:8080/monthly-summary-transactionHistory?month=${month}&year=${year}`)
+      .then(res => res.json())
+      .then(data => {
+
+        displayTitle(monthName, yearNum); // show the heading (Eg: Transaction History of {month}-{year})
+        removeCssStyle(); //remove hide-summary to display the transaction header
+        let displayData ='';
+
+        data.forEach((element) => {
+
+            const html = `
+                <div class="transaction-row">
+
+                    <div>${element.title}</div>
+
+                    <div class="date-column">${element.date}</div>
+
+                    <div>$${element.amount.toFixed(2)}</div>
+
+                    <div class="${element.type}-type">
+                        ${element.type}
+                    </div>
+
+                        <div class="menu-container">
+                            <button class="three-dots" onclick="threeDots(this)">
+                              &#8942
+                            </button>
+
+                            <div class="dropdown-options">
+                                <button class="edit-button" onclick="editTransaction(${element.id})">
+                                  <img class="edit-img" src="Images/edit-icon.png">
+                                </button>
+
+                                <button class="delete-button" onclick="
+                                  deleteTransaction(${element.id});
+                                ">
+                                  <img class="delete-img" src="Images/delete.png">
+                                </button>
+                            </div>
+                        </div>
+                </div>
+            `;
+
+            displayData += html;
+        })
+        document.querySelector('.summary-dynamic-transaction')
+         .innerHTML = displayData;
+      })
+}
+
+function displayTitle(monthName, yearNum){
+    const title = document.querySelector('.summary-transaction-mainTitle');
+
+    title.innerHTML = `
+        <h1>
+            Transaction History of ${monthName} - ${yearNum}
+        </h1>
+    `;
+}
+
+function removeCssStyle(){
+    const summaryHeader = document.querySelector('.summary-transaction-header');
+    summaryHeader.classList.remove("hide-summary");
 }
