@@ -71,9 +71,13 @@ public class ExpenseController {
 
             if(!transDate.isBefore(startDate) && !transDate.isAfter(endDate)){
                 if(transaction.getType().equals("income")){
+
                     summary.income += transaction.getAmount();
+
                 }else if (transaction.getType().equals("expense")) {
+
                     summary.expense += transaction.getAmount();
+                    
                 }
             }
         }
@@ -82,7 +86,7 @@ public class ExpenseController {
     }
     
     @GetMapping("/monthly-summary-transactionHistory")
-    public List<ExpenseData> getMethodName(@RequestParam int month, @RequestParam int year) {
+    public List<ExpenseData> calculateMonthlyExpense(@RequestParam int month, @RequestParam int year) {
         
         List<ExpenseData> transactions = repository.findAll();
         List<ExpenseData> sendData = new ArrayList<>();
@@ -93,8 +97,8 @@ public class ExpenseController {
         for(ExpenseData transaction : transactions){
             LocalDate transactionDate = transaction.getDate();
 
-            if(!transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate)){
-                sendData.add(transaction);
+            if(!transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate)){ //check if the transaction belongs to given month
+                sendData.add(transaction); //add it to the arraylist O(1).
             }
         }
             return sendData;

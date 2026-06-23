@@ -321,8 +321,22 @@ function getTransactionHistory(month, year){
       .then(res => res.json())
       .then(data => {
 
+        if(data.length === 0){
+
+            document.querySelector('.summary-transaction-container')
+             .innerHTML = `
+                <h2>
+                    No transactions found for this month.
+                </h2>
+             `;
+            
+            return;
+        }
+
         displayTitle(monthName, yearNum); // show the heading (Eg: Transaction History of {month}-{year})
         removeCssStyle(); //remove hide-summary to display the transaction header
+
+        
         let displayData ='';
 
         data.forEach((element) => {
