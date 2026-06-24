@@ -1,61 +1,36 @@
 displayloader();
+let transactions = []
 loadData(); //load transaction
 loadSummary(); //loads summary of the account
 setTimeout(() => {
     hideLoader();
 }, 1000);
 
-function sendData(){
+async function sendData(){
     displayloader();
-    const data = document.querySelector('.add-button')
+    const addButton = document.querySelector('.add-button')
 
-    data.addEventListener('click', () => {
-        const description = document.querySelector('.description-input')
-        const desValue = description.value.trim();
+    addButton.addEventListener('click', () => {
+        
+        const {desValue, amt, selectedRadio} = getInput();
 
-        if(desValue === ''){ return; }
-
-        const amount = document.querySelector('.amount-input')
-        const amt = amount.value;
-
-        if(amt === ''){ return; }
-
-        let selectedRadio = document.querySelector('input[name=TransactionType]:checked');
-
-        if(selectedRadio === null){ return; }
-
-        fetch("http://localhost:8080/transactions" , {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-
-                title: desValue,
-                amount: amt,
-                type: selectedRadio.value,
-            
-            }) //body closing
-
-        }).then(res => res.json())
-          .then(data => {
-            loadData();
-            loadSummary();
-        }) //.then closing
-
-        description.value = '';
-        amount.value = '';
-        selectedRadio.checked = false;
+        sendTransactionApi({
+            title: desValue,
+            amount: amt,
+            type: selectedRadio.value
+        });
 
    }) //eventlistener closing
 
-   setTimeout(() => { hideLoader(); }, 1000);
+        loadData();
+        loadSummary();
+
+        resetInput();
+        hideLoader();
 }
 
-function loadSummary(){
-    fetch("http://localhost:8080/summary")
-      .then(res => res.json())
-      .then(data => {
+async function loadSummary(){
+    const data = await getSummaryData();
         
         document.querySelector('.balance')
           .innerHTML = `$${data.currBal.toFixed(2)}`;
@@ -65,72 +40,34 @@ function loadSummary(){
 
         document.querySelector('.expense-class')
           .innerHTML = `$${data.expense.toFixed(2)}`;
-      })
+    
 }
 
-let transactions = []
-function loadData(){
 
-    fetch("http://localhost:8080/transactions")
-      .then(res => res.json())
-      .then(data => {
+async function loadData(){
 
-        transactions = data;
+    const data = await getData();
 
+     //   transactions = data;
         let displayData = ''
 
         data.forEach((element) => {
 
-            const html = `
-
-                <div class="transaction-row">
-
-                    <div>${element.title}</div>
-
-                    <div class="date-column">${element.date}</div>
-
-                    <div>$${element.amount.toFixed(2)}</div>
-
-                    <div class="${element.type}-type">
-                        ${element.type}
-                    </div>
-
-                        <div class="menu-container">
-                            <button class="three-dots" onclick="threeDots(this)">
-                              &#8942
-                            </button>
-
-                            <div class="dropdown-options">
-                                <button class="edit-button" onclick="editTransaction(${element.id})">
-                                  <img class="edit-img" src="Images/edit-icon.png">
-                                </button>
-
-                                <button class="delete-button" onclick="
-                                  deleteTransaction(${element.id});
-                                ">
-                                  <img class="delete-img" src="Images/delete.png">
-                                </button>
-                            </div>
-                        </div>
-                </div>
-            `;
-
-            displayData += html;
+            displayData += createTransactionRow(element);
         });
           
         document.querySelector('.dynamic-transaction')
           .innerHTML = displayData;
-      })
 }
 
 function deleteTransaction(idx){
     displayloader()
-    fetch(`http://localhost:8080/transactions/${idx}`, {
-        method: "DELETE"
-    }).then(res => {
-        loadData();
-        loadSummary();
-    })
+
+    const deleteTransac = deleteTransactionApi(idx);
+
+    loadData();
+    loadSummary();
+
     hideLoader();
 }
 
@@ -140,37 +77,6 @@ const transactionBtn = document.querySelector('.transaction-button');
 transactionBtn.addEventListener('click', () => {
     document.querySelector('.css-body')
         .classList.toggle('transaction-view');
-});
-
-/*----- shows the dropdown menu after clicking three dots at transaction row -----*/
-function threeDots(button){
-
-    const dropdownContainer = button.parentElement.querySelector('.dropdown-options'); // gets the parentelement of the clicked button
-    const drop = dropdownContainer.classList.contains("show"); //boolean
-
-    const dropDown = document.querySelectorAll('.dropdown-options') // gets all the dropdown option class 
-
-    dropDown.forEach(list => {
-        list.classList.remove("show") // hides all the dropdown menus
-    })
-
-    if(!drop){
-        dropdownContainer.classList.add("show");
-    }
-}
-
-document.addEventListener('click', (event) => {
-
-    const clickedInsideMenu =
-        event.target.closest('.menu-container');
-
-    if(!clickedInsideMenu){
-
-        document.querySelectorAll('.dropdown-options')
-            .forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
-    }
 });
 
 
@@ -198,7 +104,7 @@ function editTransaction(id){
     }
 }
 
-function sendUpdatedTransaction(){
+async function sendUpdatedTransaction(){
     displayloader()
     const newTitle = document.querySelector('.title-input').value;
 
@@ -206,84 +112,22 @@ function sendUpdatedTransaction(){
 
     const newType = document.querySelector('input[name=edit-type]:checked');
 
-    fetch(`http://localhost:8080/transactions/${editId}`, {
-        method: "PUT",
-        headers: {
-            'Content-Type' : 'application/JSON'
-        },
-        body: JSON.stringify({
-            title: newTitle,
-            amount: newAmt,
-            type: newType.value,
-        })
+    await editTransactionApi(editId, {
+        newTitle,
+        newAmt,
+        newType
     })
-      .then(data => {
-        loadData();
-        loadSummary();
-      })
+
+    
+    loadData();
+    loadSummary();
+
     hideLoader()  
     successMessage();
     hidePopup();
 }
 
-function hidePopup(){
-    const hidePopup = document.getElementById("overlay");
-      hidePopup.classList.add("hidden");
-}
-
-function successMessage(){
-    const message = document.querySelector('.edit-successful');
-
-    message.classList.remove("lost");
-
-    setTimeout(() => {
-        message.classList.add("lost");
-    }, 2000);
-}
-
-/*-----Adding the loading effect -----*/
-function displayloader(){
-    document.querySelector('.loading-effect').classList.remove("hidden-loader");
-}
-function hideLoader(){
-    document.querySelector('.loading-effect').classList.add("hidden-loader");
-}
-
-/*-----Showing summary tab-----*/
-
-function showSummaryTab(){
-
-    document
-        .querySelector('.css-body')
-        .classList.add('summary-open');
-}
-
-/*-----showing active button-----*/
-const sidebarButtons = document.querySelectorAll(
-    '.dash-button, .transaction-button, .summary-button'
-);
-
-function setActive(clickedButton){
-
-    sidebarButtons.forEach(button => {
-        button.classList.remove('active-button');
-    });
-
-    clickedButton.classList.add('active-button');
-}
-
-/* -----Show dashboard again----- */
-
-document.querySelector('.dash-button')
-.addEventListener('click', () => {
-
-    document
-        .querySelector('.css-body')
-        .classList.remove('summary-open');
-
-});
-
-function getMonthlySummary(){
+async function getMonthlySummary(){
     const month = document.querySelector('.month-select').value;
     const year = document.querySelector('.year-select').value;
 
@@ -292,9 +136,7 @@ function getMonthlySummary(){
         return;
     }
 
-    fetch(`http://localhost:8080/monthly-summary?month=${month}&year=${year}`)
-      .then(res => res.json())
-      .then(data => {
+    const data = await getMonthlySummaryData(month, year);
         
         document.querySelector('.monthly-balance')
          .innerHTML = `$${data.currBal.toFixed(2)}`;
@@ -304,22 +146,19 @@ function getMonthlySummary(){
 
         document.querySelector('.monthly-income')
          .innerHTML = `$${data.income.toFixed(2)}`;
-      });
 
       getTransactionHistory(month, year);
 }
 
 
-function getTransactionHistory(month, year){
+async function getTransactionHistory(month, year){
     const selectedMonth = document.querySelector('.month-select');
     const monthName = selectedMonth.options[selectedMonth.selectedIndex].text;
     
     const selectedYear = document.querySelector('.year-select');
     const yearNum = selectedYear.options[selectedYear.selectedIndex].text;
 
-    fetch(`http://localhost:8080/monthly-summary-transactionHistory?month=${month}&year=${year}`)
-      .then(res => res.json())
-      .then(data => {
+    const data = await getMonthlyTransactionHistory(month, year);
 
         if(data.length === 0){
 
@@ -335,63 +174,17 @@ function getTransactionHistory(month, year){
 
         displayTitle(monthName, yearNum); // show the heading (Eg: Transaction History of {month}-{year})
         removeCssStyle(); //remove hide-summary to display the transaction header
-
         
         let displayData ='';
 
         data.forEach((element) => {
 
-            const html = `
-                <div class="transaction-row">
-
-                    <div>${element.title}</div>
-
-                    <div class="date-column">${element.date}</div>
-
-                    <div>$${element.amount.toFixed(2)}</div>
-
-                    <div class="${element.type}-type">
-                        ${element.type}
-                    </div>
-
-                        <div class="menu-container">
-                            <button class="three-dots" onclick="threeDots(this)">
-                              &#8942
-                            </button>
-
-                            <div class="dropdown-options">
-                                <button class="edit-button" onclick="editTransaction(${element.id})">
-                                  <img class="edit-img" src="Images/edit-icon.png">
-                                </button>
-
-                                <button class="delete-button" onclick="
-                                  deleteTransaction(${element.id});
-                                ">
-                                  <img class="delete-img" src="Images/delete.png">
-                                </button>
-                            </div>
-                        </div>
-                </div>
-            `;
-
-            displayData += html;
+            displayData += createTransactionRow(element);
         })
+
         document.querySelector('.summary-dynamic-transaction')
          .innerHTML = displayData;
-      })
 }
 
-function displayTitle(monthName, yearNum){
-    const title = document.querySelector('.summary-transaction-mainTitle');
 
-    title.innerHTML = `
-        <h1>
-            Transaction History of ${monthName} - ${yearNum}
-        </h1>
-    `;
-}
 
-function removeCssStyle(){
-    const summaryHeader = document.querySelector('.summary-transaction-header');
-    summaryHeader.classList.remove("hide-summary");
-}
