@@ -54,10 +54,14 @@ document.querySelector('.dash-button')
     document
         .querySelector('.css-body')
         .classList.remove('summary-open');
+    
+    document.querySelector('.css-body')
+        .classList.remove('transaction-view');
 
 });
 
 function displayTitle(monthName, yearNum){
+
     const title = document.querySelector('.summary-transaction-mainTitle');
 
     title.innerHTML = `

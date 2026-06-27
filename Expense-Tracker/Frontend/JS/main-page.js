@@ -76,7 +76,12 @@ const transactionBtn = document.querySelector('.transaction-button');
 
 transactionBtn.addEventListener('click', () => {
     document.querySelector('.css-body')
-        .classList.toggle('transaction-view');
+        .classList.add('transaction-view');
+
+    // hides summary tab if open
+    document
+        .querySelector('.css-body')
+        .classList.remove('summary-open');
 });
 
 
@@ -128,6 +133,7 @@ async function sendUpdatedTransaction(){
 }
 
 async function getMonthlySummary(){
+    displayloader();
     const month = document.querySelector('.month-select').value;
     const year = document.querySelector('.year-select').value;
 
@@ -148,10 +154,14 @@ async function getMonthlySummary(){
          .innerHTML = `$${data.income.toFixed(2)}`;
 
       getTransactionHistory(month, year);
+      hideLoader();
 }
 
 
 async function getTransactionHistory(month, year){
+    
+    let displayData ='';
+
     const selectedMonth = document.querySelector('.month-select');
     const monthName = selectedMonth.options[selectedMonth.selectedIndex].text;
     
@@ -161,21 +171,21 @@ async function getTransactionHistory(month, year){
     const data = await getMonthlyTransactionHistory(month, year);
 
         if(data.length === 0){
-
-            document.querySelector('.summary-transaction-container')
+            document.querySelector('.summary-transaction-header')
+              .classList.add("hide-summary");
+            document.querySelector('.summary-dynamic-transaction')
              .innerHTML = `
                 <h2>
                     No transactions found for this month.
                 </h2>
              `;
-            
             return;
         }
 
         displayTitle(monthName, yearNum); // show the heading (Eg: Transaction History of {month}-{year})
         removeCssStyle(); //remove hide-summary to display the transaction header
         
-        let displayData ='';
+        
 
         data.forEach((element) => {
 
