@@ -168,6 +168,8 @@ async function getTransactionHistory(month, year){
     const selectedYear = document.querySelector('.year-select');
     const yearNum = selectedYear.options[selectedYear.selectedIndex].text;
 
+    displayTitle(monthName, yearNum); // show the heading (Eg: Transaction History of {month}-{year})
+
     const data = await getMonthlyTransactionHistory(month, year);
 
         if(data.length === 0){
@@ -181,11 +183,8 @@ async function getTransactionHistory(month, year){
              `;
             return;
         }
-
-        displayTitle(monthName, yearNum); // show the heading (Eg: Transaction History of {month}-{year})
+        
         removeCssStyle(); //remove hide-summary to display the transaction header
-        
-        
 
         data.forEach((element) => {
 
