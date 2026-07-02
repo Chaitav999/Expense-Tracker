@@ -4,12 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.Expense_Tracker.controller.User;
 
+
 public interface UserRepository extends JpaRepository<User, Long>{
     
-    private boolean userAvailable(){
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 
-        
-
-        return false;
-    }
+    User findByUsername(String username);
 }
