@@ -1,11 +1,17 @@
 function getInput(){
-    const description = document.querySelector('.description-input')
+    const description = document.querySelector('.description-input');
+    console.log(description);
         const desValue = description.value.trim();
 
         const amount = document.querySelector('.amount-input')
         const amt = amount.value;
 
-        let selectedRadio = document.querySelector('input[name=TransactionType]:checked');
+        const selectedRadio = document.querySelector('input[name=TransactionType]:checked');
+
+     /*   if(selectedRadio === null){
+            alert("Please select Income or Expense");
+            return;
+        } */
 
     return {
         desValue,

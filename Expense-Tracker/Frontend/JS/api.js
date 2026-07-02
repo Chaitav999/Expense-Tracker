@@ -48,16 +48,16 @@ async function deleteTransactionApi(idx){
     return response;
 }
 
-async function editTransactionApi(editId){
+async function editTransactionApi(editId, updatedData){
     const response = await fetch(`http://localhost:8080/transactions/${editId}`, {
         method: "PUT",
         headers: {
             'Content-Type' : 'application/JSON'
         },
         body: JSON.stringify({
-            title: newTitle,
-            amount: newAmt,
-            type: newType.value,
+            title: updatedData.newTitle,
+            amount: updatedData.newAmt,
+            type: updatedData.newType.value,
         })
     });
 

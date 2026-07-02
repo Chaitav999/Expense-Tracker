@@ -13,7 +13,7 @@ function threeDots(button){
         dropdownContainer.classList.add("show");
     }
 
-    hidePopup();
+    hidePopUp();
 }
 
 /*-----Adding the loading effect -----*/

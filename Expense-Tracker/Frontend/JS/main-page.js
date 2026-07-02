@@ -1,5 +1,5 @@
 displayloader();
-let transactions = []
+let transactions = [] // saving transaction data for editing tasks later..
 loadData(); //load transaction
 loadSummary(); //loads summary of the account
 setTimeout(() => {
@@ -10,23 +10,22 @@ async function sendData(){
     displayloader();
     const addButton = document.querySelector('.add-button')
 
-    addButton.addEventListener('click', () => {
+    addButton.addEventListener('click', async () => {
         
         const {desValue, amt, selectedRadio} = getInput();
 
-        sendTransactionApi({
+        await sendTransactionApi({
             title: desValue,
             amount: amt,
             type: selectedRadio.value
         });
-
-   }) //eventlistener closing
-
+        resetInput();
         loadData();
         loadSummary();
-
-        resetInput();
-        hideLoader();
+        
+        
+   }) //eventlistener closing
+    hideLoader();
 }
 
 async function loadSummary(){
@@ -48,7 +47,7 @@ async function loadData(){
 
     const data = await getData();
 
-     //   transactions = data;
+        transactions = data; // saved transaction data for editing tasks later..
         let displayData = ''
 
         data.forEach((element) => {
@@ -121,15 +120,15 @@ async function sendUpdatedTransaction(){
         newTitle,
         newAmt,
         newType
-    })
+    });
 
     
-    loadData();
-    loadSummary();
+    await loadData();
+    await loadSummary();
 
     hideLoader()  
     successMessage();
-    hidePopup();
+    hidePopup1();
 }
 
 async function getMonthlySummary(){
