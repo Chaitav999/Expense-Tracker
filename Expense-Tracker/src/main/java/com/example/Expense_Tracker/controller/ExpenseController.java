@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Expense_Tracker.repository.DataRepository;
+import com.example.Expense_Tracker.repository.UserRepository;
 
 
 
@@ -25,12 +26,13 @@ import com.example.Expense_Tracker.repository.DataRepository;
 public class ExpenseController {
     
     private DataRepository repository;
-    
+    private UserRepository userRepository;
 
-    public ExpenseController(DataRepository repository){
+    public ExpenseController(DataRepository repository, UserRepository userRepository){
         this.repository = repository;
+        this.userRepository = userRepository;
     }
-
+    
     @GetMapping("/transactions")
     public List<ExpenseData> getData(){
         return repository.findAll();
@@ -137,6 +139,24 @@ public class ExpenseController {
         repository.deleteById(idx);
 
         return repository.findAll();
+    }
+
+    @PostMapping("/register")
+    public User registerUser(@RequestBody User user) {
+        //TODO: process POST request
+        
+        if(!userRepository.existsByUsername(user.getUsername())){
+            System.out.println("Username already taken.");
+            return user;
+        }
+        if(!userRepository.existsByEmail(user.getEmail())){
+            System.out.println("Email already exists.");
+            return user;
+        }
+
+        userRepository.save(user);
+
+        return user;
     }
     
 }

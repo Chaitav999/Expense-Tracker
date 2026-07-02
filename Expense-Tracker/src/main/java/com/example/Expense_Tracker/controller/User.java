@@ -20,4 +20,10 @@ public class User {
     @OneToMany(mappedBy="user")
     private List<ExpenseData> transactions;
 
+    public String getUsername(){
+        return username;
+    }
+    public String getEmail(){
+        return email;
+    }
 }
