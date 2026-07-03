@@ -2,9 +2,9 @@ displayloader();
 let transactions = [] // saving transaction data for editing tasks later..
 loadData(); //load transaction
 loadSummary(); //loads summary of the account
-setTimeout(() => {
-    hideLoader();
-}, 1000);
+
+hideLoader();
+
 
 async function sendData(){
     displayloader();

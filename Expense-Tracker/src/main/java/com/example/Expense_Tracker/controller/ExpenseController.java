@@ -5,6 +5,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -142,21 +143,27 @@ public class ExpenseController {
     }
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
-        //TODO: process POST request
+    public ResponseEntity<ApiResponse> registerUser(@RequestBody User user) {
         
-        if(!userRepository.existsByUsername(user.getUsername())){
-            System.out.println("Username already taken.");
-            return user;
+        ApiResponse response = new ApiResponse();
+        
+        if(userRepository.existsByUsername(user.getUsername())){
+            response.setSuccessStatus(false);
+            response.setMessage("Username already exists.");
+            return ResponseEntity.badRequest().body(response);
         }
-        if(!userRepository.existsByEmail(user.getEmail())){
-            System.out.println("Email already exists.");
-            return user;
+        if(userRepository.existsByEmail(user.getEmail())){
+            response.setSuccessStatus(false);
+            response.setMessage("Email already exists.");
+            return ResponseEntity.badRequest().body(response);
         }
 
+        response.setSuccessStatus(true);
+        response.setMessage("Registered successfully.");
         userRepository.save(user);
 
-        return user;
+        return ResponseEntity.ok(response);
     }
+
     
 }
