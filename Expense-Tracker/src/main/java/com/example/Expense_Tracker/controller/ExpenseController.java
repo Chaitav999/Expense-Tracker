@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Expense_Tracker.Service.UserService;
 import com.example.Expense_Tracker.repository.DataRepository;
 import com.example.Expense_Tracker.repository.UserRepository;
 
@@ -146,21 +147,8 @@ public class ExpenseController {
     public ResponseEntity<ApiResponse> registerUser(@RequestBody User user) {
         
         ApiResponse response = new ApiResponse();
-        
-        if(userRepository.existsByUsername(user.getUsername())){
-            response.setSuccessStatus(false);
-            response.setMessage("Username already exists.");
-            return ResponseEntity.badRequest().body(response);
-        }
-        if(userRepository.existsByEmail(user.getEmail())){
-            response.setSuccessStatus(false);
-            response.setMessage("Email already exists.");
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        response.setSuccessStatus(true);
-        response.setMessage("Registered successfully.");
-        userRepository.save(user);
+        UserService userService = new UserService();
+        userService.register(user);
 
         return ResponseEntity.ok(response);
     }
