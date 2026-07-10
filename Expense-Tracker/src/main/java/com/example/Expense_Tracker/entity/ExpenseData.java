@@ -1,4 +1,4 @@
-package com.example.Expense_Tracker.controller;
+package com.example.Expense_Tracker.entity;
 
 import java.time.LocalDate;
 

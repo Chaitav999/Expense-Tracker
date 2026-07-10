@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.Expense_Tracker.controller.ExpenseData;
+import com.example.Expense_Tracker.entity.ExpenseData;
 import com.example.Expense_Tracker.repository.DataRepository;
 import com.example.Expense_Tracker.repository.UserRepository;
 

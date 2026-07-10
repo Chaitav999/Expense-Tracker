@@ -1,4 +1,4 @@
-package com.example.Expense_Tracker.Service;
+package com.example.Expense_Tracker.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
