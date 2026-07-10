@@ -18,8 +18,6 @@ import com.example.Expense_Tracker.Service.TransactionService;
 import com.example.Expense_Tracker.Service.UserService;
 
 
-
-
 @CrossOrigin(origins="*")
 @RestController
 public class ExpenseController {
@@ -83,8 +81,5 @@ public class ExpenseController {
 
         return transactionService.delTransaction(idx);
     }
-
-    
-
     
 }
