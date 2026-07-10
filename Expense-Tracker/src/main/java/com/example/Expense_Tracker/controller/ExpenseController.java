@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Expense_Tracker.DTO.ApiResponse;
+import com.example.Expense_Tracker.DTO.LoginRequest;
 import com.example.Expense_Tracker.Service.Summary;
 import com.example.Expense_Tracker.Service.TransactionService;
 import com.example.Expense_Tracker.Service.UserService;
 import com.example.Expense_Tracker.entity.ExpenseData;
+import com.example.Expense_Tracker.entity.User;
 
 
 @CrossOrigin(origins="*")
@@ -79,10 +81,10 @@ public class ExpenseController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> loginUser(@RequestBody User user) {
+    public ResponseEntity<ApiResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         //TODO: process POST request
         
-        return userService.verifyUser(user);
+        return userService.login(loginRequest);
     }
     
 

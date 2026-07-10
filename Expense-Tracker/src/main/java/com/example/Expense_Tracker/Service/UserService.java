@@ -1,10 +1,13 @@
 package com.example.Expense_Tracker.Service;
 
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.Expense_Tracker.DTO.ApiResponse;
+import com.example.Expense_Tracker.DTO.LoginRequest;
 import com.example.Expense_Tracker.entity.User;
 import com.example.Expense_Tracker.repository.UserRepository;
 
@@ -43,18 +46,30 @@ public class UserService {
         return ResponseEntity.ok(response);
     }
 
-    public ResponseEntity<ApiResponse> verifyUser(User user){
+    public ResponseEntity<ApiResponse> login(LoginRequest loginRequest){
 
         ApiResponse response = new ApiResponse();
+        Optional<User> optionalUser = repository.findByEmail(loginRequest.getEmail());
 
-        if(!repository.existsByEmail(user.getEmail()) || !repository.existsByUsername(user.getUsername())){
-            response.setSuccessStatus(false);
-            response.setMessage("Invalid username or password");
-            return ResponseEntity.badRequest().body(response);
-        }else{
-            
+        if(!optionalUser.isPresent()){
+            return invalidCredentials(response);
         }
 
+        User user = optionalUser.get();
+
+        if(!encoder.matches(loginRequest.getPassword(), user.getPassword())){
+            return invalidCredentials(response);
+        }
+        
+        response.setSuccessStatus(true);
+        response.setMessage("Login successful.");
         return ResponseEntity.ok(response);
+    }
+
+    public ResponseEntity<ApiResponse> invalidCredentials(ApiResponse response){
+
+        response.setSuccessStatus(false);
+        response.setMessage("Invalid email or password.");
+        return ResponseEntity.badRequest().body(response);
     }
 }
