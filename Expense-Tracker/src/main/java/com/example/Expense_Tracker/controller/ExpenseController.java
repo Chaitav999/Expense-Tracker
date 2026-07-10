@@ -1,8 +1,5 @@
 package com.example.Expense_Tracker.controller;
 
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -16,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Expense_Tracker.Service.Summary;
+import com.example.Expense_Tracker.Service.TransactionService;
 import com.example.Expense_Tracker.Service.UserService;
-import com.example.Expense_Tracker.repository.DataRepository;
-import com.example.Expense_Tracker.repository.UserRepository;
 
 
 
@@ -27,131 +24,67 @@ import com.example.Expense_Tracker.repository.UserRepository;
 @RestController
 public class ExpenseController {
     
-    private DataRepository repository;
-    private UserRepository userRepository;
+    private UserService userService;
+    private TransactionService transactionService;
 
-    public ExpenseController(DataRepository repository, UserRepository userRepository){
-        this.repository = repository;
-        this.userRepository = userRepository;
+    public ExpenseController(UserService userService, TransactionService transactionService){
+        this.userService = userService;
+        this.transactionService = transactionService;
     }
     
     @GetMapping("/transactions")
     public List<ExpenseData> getData(){
-        return repository.findAll();
+        return transactionService.getTransactionData();
     }
 
      @GetMapping("/summary")
     public Summary calculateSummary() {      //calculates expense, income and current balance
-        List<ExpenseData> transactions = repository.findAll();
-        Summary summary = new Summary();
-        
-        for(ExpenseData transaction : transactions){
-            if(transaction.getType().equals("income")){
-                summary.income += transaction.getAmount();
-            }
-            
-            if(transaction.getType().equals("expense")){
-                summary.expense += transaction.getAmount();
-            }
-        }
-        summary.currBal = summary.income - summary.expense;
-
-        return summary;
+        return transactionService.calSummary();
     }
 
 
     /*-----Return the month's income, expense and currBal----- */
     @GetMapping("/monthly-summary")
     public Summary calculateMonthlyData(@RequestParam int month, @RequestParam int year) {
-
-        Summary summary = new Summary();
-        List<ExpenseData> transactions = repository.findAll();
-        
-        LocalDate startDate = LocalDate.of(year, month, 1);
-        LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
-        
-        for(ExpenseData transaction : transactions){
-            LocalDate transDate = transaction.getDate();
-
-            if(!transDate.isBefore(startDate) && !transDate.isAfter(endDate)){
-                if(transaction.getType().equals("income")){
-
-                    summary.income += transaction.getAmount();
-
-                }else if (transaction.getType().equals("expense")) {
-
-                    summary.expense += transaction.getAmount();
-                    
-                }
-            }
-        }
-        summary.currBal = summary.income - summary.expense;
-        return summary;
+        return transactionService.calMonthlyData(month, year);
     }
     
     @GetMapping("/monthly-summary-transactionHistory")
     public List<ExpenseData> calculateMonthlyExpense(@RequestParam int month, @RequestParam int year) {
         
-        List<ExpenseData> transactions = repository.findAll();
-        List<ExpenseData> sendData = new ArrayList<>();
-
-        LocalDate startDate = LocalDate.of(year, month, 1);
-        LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
-
-        for(ExpenseData transaction : transactions){
-            LocalDate transactionDate = transaction.getDate();
-
-            if(!transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate)){ //check if the transaction belongs to given month
-                sendData.add(transaction); //add it to the arraylist O(1).
-            }
-        }
-            return sendData;
+        return transactionService.calMonthlyExpense(month, year);
     }
     
 
     @PutMapping("transactions/{id}")
-    public List<ExpenseData> putMethodName(@PathVariable long id, @RequestBody ExpenseData data) {
+    public List<ExpenseData> editTransaction(@PathVariable long id, @RequestBody ExpenseData data) {
         //TODO: process PUT request
 
-        ExpenseData transData = repository.findById(id).get();
-
-        transData.setTitle(data.getTitle());
-        transData.setAmount(data.getAmount());
-        transData.setType(data.getType());
-
-        repository.save(transData);
-        
-        return repository.findAll();
+        return transactionService.updateTransaction(id, data);
     }
 
     @PostMapping("/transactions")
-    public List<ExpenseData> postMethodName(@RequestBody ExpenseData data) {
+    public List<ExpenseData> saveData(@RequestBody ExpenseData data) {
         //TODO: process POST request
 
-        data.setDate(LocalDate.now());
-        
-        repository.save(data);
-
-        return repository.findAll();
-    }
-
-    @DeleteMapping("/transactions/{idx}")
-    public List<ExpenseData> deleteTransaction(@PathVariable long idx){
-
-        repository.deleteById(idx);
-
-        return repository.findAll();
+        return transactionService.postData(data);
     }
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> registerUser(@RequestBody User user) {
         
-        ApiResponse response = new ApiResponse();
-        UserService userService = new UserService();
-        userService.register(user);
+        ResponseEntity<ApiResponse> response = userService.register(user);
 
-        return ResponseEntity.ok(response);
+        return response;
     }
+
+    @DeleteMapping("/transactions/{idx}")
+    public List<ExpenseData> deleteTransaction(@PathVariable long idx){
+
+        return transactionService.delTransaction(idx);
+    }
+
+    
 
     
 }
