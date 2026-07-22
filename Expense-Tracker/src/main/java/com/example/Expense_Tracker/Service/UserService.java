@@ -16,10 +16,12 @@ public class UserService {
     
     private final UserRepository repository;
     private final BCryptPasswordEncoder encoder;
+    private final JWTService jwt;
 
-    public UserService(UserRepository repository, BCryptPasswordEncoder encoder){
+    public UserService(UserRepository repository, BCryptPasswordEncoder encoder, JWTService jwt){
         this.repository = repository;
         this.encoder = encoder;
+        this.jwt = jwt;
     }
 
     public ResponseEntity<ApiResponse> register(User user){
@@ -60,9 +62,12 @@ public class UserService {
         if(!encoder.matches(loginRequest.getPassword(), user.getPassword())){
             return invalidCredentials(response);
         }
+
+        String token = jwt.generateToken(user);
         
         response.setSuccessStatus(true);
         response.setMessage("Login successful.");
+        response.setToken(token);
         return ResponseEntity.ok(response);
     }
 
