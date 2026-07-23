@@ -22,7 +22,6 @@ import com.example.Expense_Tracker.entity.ExpenseData;
 import com.example.Expense_Tracker.entity.User;
 
 
-@CrossOrigin(origins="*")
 @RestController
 public class ExpenseController {
     
