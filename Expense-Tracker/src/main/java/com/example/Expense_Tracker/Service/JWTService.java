@@ -18,11 +18,6 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JWTService {
-
-    public String extractEmail(String jwt) {
-        Claims claims = extractAllClaims(jwt);
-        return claims.getSubject();
-    }
     
     private final JwtProperties properties;
 
@@ -48,7 +43,11 @@ public class JWTService {
         } catch(JwtException | IllegalArgumentException e){
             return false;
         }
-        
+    }
+
+    public String extractEmail(String jwt) {
+        Claims claims = extractAllClaims(jwt);
+        return claims.getSubject();
     }
 
     private Claims extractAllClaims(String token){
