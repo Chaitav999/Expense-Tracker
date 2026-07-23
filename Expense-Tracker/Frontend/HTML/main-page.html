@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="Frontend/CSS/register.css">
+        <link rel="stylesheet" href="CSS/leftSection.css">
+        <link rel="stylesheet" href="CSS/middleSection.css">
+        <link rel="stylesheet" href="CSS/rightSection.css">
+        <link rel="stylesheet" href="CSS/editPopup.css">
+        <link rel="stylesheet" href="CSS/summary.css">
+        <title>Expense Tracker</title>
+        
+    </head>
+
+    <body>
+        <section>
+            <div class="css-body">
+                <div class="left-section">
+                    <img src="Images/LOGO.png" class="logo-img"/>
+
+                    <button class="dash-button" onclick="setActive(this)">DASHBOARD</button>
+                    <button class="transaction-button" onclick="setActive(this)">TRANSACTIONS</button>
+                    <button class="summary-button" onclick="
+                    showSummaryTab()
+                    setActive(this)
+                    ">SUMMARY</button>
+                </div>
+
+                <div class="middle-section">
+                    <h2 class="header-1">Expense Tracker</h2>
+
+                    <div class="expense-dashboard">
+
+                        <div class="curr-balance">
+                            <p>Current Balance</p>
+                            <div class="balance"></div>
+                        </div>
+
+                        <div class="total-income">
+                            <p>Total income</p>
+                            <div class="income-dashboard"></div>
+                        </div>
+
+                        <div class="expense">
+                            <p>Expense</p>
+                            <div class="expense-class"></div>
+                        </div>
+                    </div> <!--Expense-dashboard-->
+
+                    <div class="form-section">
+
+                        <h2>Add Transaction</h2>
+                        <div class="input-container">
+
+                            <input placeholder="Enter description" class="description-input" type="text">
+
+                            <input placeholder="Amount" class="amount-input" type="number">
+
+                            <div class="checkbox">
+                                <label class="income-checkbox">
+                                    <input type="radio" class="income-checkbox-text" name="TransactionType" value="income"> 
+                                    <span class="label-text">Income</span>
+                                </label>
+                                <label class="expense-checkbox">
+                                    <input type="radio" class="expense-checkbox-text" name="TransactionType" value="expense"> 
+                                    <span class="label-text">Expense</span>
+                                </label>
+                            </div>
+                            
+
+                            <button class="add-button" onclick="sendData()">Add</button>
+                        </div>
+                    </div>
+
+                </div> <!--middle-section-->
+                
+                <div class="right-section">
+                    <div>
+                        <h2 class="header-2">Transactions</h2>
+                    </div>
+                    
+
+                    <div class="transaction-container">
+
+                        <div class="transaction-header">
+                            <div class="transaction-title">Title</div>
+                            <div>Date</div>
+                            <div>Amount</div>
+                            <div>Type</div>
+                            <div>Action</div>
+                        </div>
+                        
+                        <div class="dynamic-transaction">
+                            
+                        </div>
+                    </div> <!--transaction container-->
+                </div> <!--right-section-->
+
+                <!--Summary tab-->
+                <div class="summary-section">
+
+                    <h2 class="summary-header">
+                        Monthly Summary
+                    </h2>
+
+                    <div class="summary-filter-container">
+
+                        <select class="month-select">
+                            <option value="" selected disabled>
+                                Select Month
+                            </option>
+
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                            
+                        </select>
+
+                        <select class="year-select">
+                            <option value="" selected disabled>
+                                Select Year
+                            </option>
+
+                            <option>2026</option>
+                            <option>2025</option>
+                        </select>
+
+                        <button class="show-summary-button" onclick="getMonthlySummary()">
+                            Show Summary
+                        </button>
+
+                    </div>
+
+                    <div class="summary-dashboard">
+
+                        <div class="summary-card income-card">
+                            <p>Income</p>
+                            <div class="monthly-income">$0</div>
+                        </div>
+
+                        <div class="summary-card expense-card">
+                            <p>Expense</p>
+                            <div class="monthly-expense">$0</div>
+                        </div>
+
+                        <div class="summary-card balance-card">
+                            <p>Savings</p>
+                            <div class="monthly-balance">$0</div>
+                        </div>
+
+                    </div>
+
+                    
+                        <div class="summary-transaction-container">
+
+                            <div class="summary-transaction-mainTitle">
+                                
+                            </div>
+                        <div class="summary-transaction-header hide-summary">
+                            <div class="summary-transaction-title">Title</div>
+                            <div>Date</div>
+                            <div>Amount</div>
+                            <div>Type</div>
+                            <div>Action</div>
+                        </div>
+                        
+                        <div class="summary-dynamic-transaction">
+                            
+                        </div>
+                    </div> <!--transaction container-->
+                    
+
+                </div> <!--summary tab-->
+            </div> <!--css-body-->
+        </section>
+
+        <!--Edit popup apperance after clicking the edit button-->
+
+        <div id="overlay" class="overlay hidden">
+
+            <div class="edit-popup">
+
+                <h2>Edit Transaction</h2>
+
+                <label class="edit-popup-headings">Title</label>
+                <input type="text" class="title-input" id="edit-title">
+
+                <label class="edit-popup-headings">Amount</label>
+                <input type="number" class="amt-input" id="edit-amount">
+
+                <label class="edit-popup-headings">Type</label>
+
+                <div class="radio-group">
+                    <input type="radio"
+                        name="edit-type"
+                        id="edit-income"
+                        value="income">
+
+                    <label for="edit-income">Income</label>
+
+                    <input type="radio"
+                        name="edit-type"
+                        id="edit-expense"
+                        value="expense">
+
+                    <label for="edit-expense">Expense</label>
+                </div>
+
+                <label class="edit-popup-headings">Date</label>
+                <input type="date"
+                    class="date-input"
+                    id="edit-date"
+                    readonly>
+
+                <div class="buttons">
+                    <button id="save-btn" onclick="sendUpdatedTransaction()">Save</button>
+                    <button id="cancel-btn" onclick="hidePopup1()">Cancel</button>
+                </div>
+
+            </div> <!--edit-popup-->
+        </div> <!--overlay-->
+
+        <!--showing confirmation message-->
+        <div class="edit-successful lost">
+            <div class="edit-successful-border">
+                <img class="transaction-success-img" src="Images/success.png">
+                <p class="transaction-success-label">Transaction updated</p>
+            </div>
+        </div>
+
+        <!--Loading effect-->
+        <div class="loading-effect hidden-loader">
+            <div class="spinner"></div>
+        </div>
+
+        <script src="JS/api.js"></script>
+        <script src="JS/transactions.js"></script>
+        <script src="JS/UI.js"></script>
+        <script src="JS/popup.js"></script>
+        <script src="JS/main-page.js"></script>
+    </body>
+</html>

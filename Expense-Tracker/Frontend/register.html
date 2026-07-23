@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account</title>
+
+    <link rel="stylesheet" href="CSS/register.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Left Side -->
+
+    <section class="left-panel">
+
+        <div class="overlay">
+
+            <h1>Expense Tracker</h1>
+
+            <p>
+                Take control of your finances with a simple, secure
+                and modern expense tracking experience.
+            </p>
+
+            <ul>
+
+                <li>✔ Secure JWT Authentication</li>
+
+                <li>✔ Expense Analytics</li>
+
+                <li>✔ Modern Dashboard</li>
+
+                <li>✔ Multi-device Access</li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- Right Side -->
+
+    <section class="right-panel">
+
+        <div class="card">
+
+            <h2>Create Account</h2>
+
+            <p class="subtitle">
+                Join and start tracking your finances.
+            </p>
+
+            <form id="registerForm">
+
+                <div class="input-group">
+
+                    <label>Username</label>
+
+                    <input
+                            type="text"
+                            id="username"
+                            placeholder="Name">
+
+                    <small class="error"></small>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Email</label>
+
+                    <input
+                            type="email"
+                            id="email"
+                            placeholder="example@email.com">
+
+                    <small class="error"></small>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <div class="password-box">
+
+                        <input
+                                type="password"
+                                id="password"
+                                placeholder="password">
+
+                        <span id="togglePassword">
+                            👁
+                        </span>
+
+                    </div>
+
+                    <small class="error"></small>
+
+                </div>
+
+                <button
+                        class="primary-btn"
+                        type="submit">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+
+            <div class="divider">
+
+                <span>OR</span>
+
+            </div>
+
+
+            <button
+                    class="guest-btn"
+                    id="guestLogin">
+
+                Continue as Guest
+
+            </button>
+
+
+            <p class="login-link">
+
+                Already have an account?
+
+                <a href="login.html">
+
+                    Login
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script src="register.js"></script>
+
+</body>
+
+</html>
