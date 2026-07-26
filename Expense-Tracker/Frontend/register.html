@@ -59,8 +59,6 @@
                 Join and start tracking your finances.
             </p>
 
-            <form id="registerForm">
-
                 <div class="input-group">
 
                     <label>Username</label>
@@ -70,7 +68,7 @@
                             id="username"
                             placeholder="Name">
 
-                    <small class="error"></small>
+                    <small class="username-error"></small>
 
                 </div>
 
@@ -84,7 +82,7 @@
                             id="email"
                             placeholder="example@email.com">
 
-                    <small class="error"></small>
+                    <small class="email-error"></small>
 
                 </div>
 
@@ -112,14 +110,12 @@
 
                 <button
                         class="primary-btn js-createAccount-btn"
-                        type="submit">
+                        type="submit"
+                        onclick="registerUser()">
 
                     Create Account
 
                 </button>
-
-            </form>
-
 
             <div class="divider">
 
@@ -155,7 +151,7 @@
 
 </div>
 
-<script src="register.js"></script>
+<script src="JS/register.js"></script>
 
 </body>
 

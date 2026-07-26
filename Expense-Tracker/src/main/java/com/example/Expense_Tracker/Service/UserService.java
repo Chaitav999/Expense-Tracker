@@ -42,8 +42,6 @@ public class UserService {
         
         user.setPassword(encoder.encode(user.getPassword()));
 
-        System.out.println(user.getPassword());
-
         repository.save(user);
         return ResponseEntity.ok(response);
     }

@@ -3,7 +3,6 @@ package com.example.Expense_Tracker.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +41,6 @@ public class ExpenseController {
     public Summary calculateSummary() {      //calculates expense, income and current balance
         return transactionService.calSummary();
     }
-
 
     /*-----Return the month's income, expense and currBal----- */
     @GetMapping("/monthly-summary")
