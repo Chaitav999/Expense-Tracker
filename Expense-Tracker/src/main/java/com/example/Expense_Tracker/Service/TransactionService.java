@@ -5,9 +5,13 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.example.Expense_Tracker.Security.CustomUserDetails;
 import com.example.Expense_Tracker.entity.ExpenseData;
+import com.example.Expense_Tracker.entity.User;
 import com.example.Expense_Tracker.repository.DataRepository;
 import com.example.Expense_Tracker.repository.UserRepository;
 
@@ -27,11 +31,18 @@ public class TransactionService {
     /*-----Logic for the GET requests-----*/
 
     public List<ExpenseData> getTransactionData(){
-        return repository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        CustomUserDetails currentUser = (CustomUserDetails) authentication.getPrincipal();
+
+        return repository.findByUser(currentUser.getUser());
     }
 
     public Summary calSummary(){
-        List<ExpenseData> transactions = repository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
+
+        List<ExpenseData> transactions = repository.findByUser(customUser.getUser());
         Summary summary = new Summary();
         
         for(ExpenseData transaction : transactions){
@@ -49,8 +60,11 @@ public class TransactionService {
 
     public Summary calMonthlyData(int month, int year){
         
-         Summary summary = new Summary();
-        List<ExpenseData> transactions = repository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal(); 
+
+        List<ExpenseData> transactions = repository.findByUser(customUser.getUser());
+        Summary summary = new Summary();
         
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
@@ -76,7 +90,9 @@ public class TransactionService {
     }
 
     public List<ExpenseData> calMonthlyExpense(int month, int year){
-        List<ExpenseData> transactions = repository.findAll();
+
+        CustomUserDetails customUser = userData();
+        List<ExpenseData> transactions = repository.findByUser(customUser.getUser());
         List<ExpenseData> sendData = new ArrayList<>();
 
         LocalDate startDate = LocalDate.of(year, month, 1);
@@ -91,6 +107,15 @@ public class TransactionService {
         }
 
         return sendData;
+    }
+
+    /*-----Logic for getting the current logged in user-----*/
+    
+    private CustomUserDetails userData(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal(); 
+
+        return customUser;
     }
 
     /*-----Logic for the PUT requests*/
@@ -112,10 +137,17 @@ public class TransactionService {
     public List<ExpenseData> postData(ExpenseData data){
         
         data.setDate(LocalDate.now());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //checks who is currently looged in
+        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
+
+        User user = customUser.getUser();
+
+        data.setUser(user);
         
         repository.save(data);
 
-        return repository.findAll();
+        return repository.findByUser(user);
     }
 
     /*-----Logic for DELETE requests*/

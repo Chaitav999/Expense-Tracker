@@ -21,6 +21,20 @@ function registerUser(){
     }).then(res => res.json())
       .then(response => {
 
+        if(response.message === "Username already exists"){
+
+            const error = document.querySelector('.username-error');
+            error.innerHTML = response.message;
+
+        } else if(response.message === "Email already exists"){
+
+            const error = document.querySelector('.email-error');
+            error.innerHTML = response.message;
+
+        }else{
+            window.location.href = "login.html";
+            console.log("login successful");
+        }
       })
 }
 

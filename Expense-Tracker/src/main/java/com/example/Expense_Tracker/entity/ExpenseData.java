@@ -51,8 +51,14 @@ public class ExpenseData {
     public LocalDate getDate(){
         return date;
     }
+    public User getUser(){
+        return user;
+    }
 
-    
+
+    public void setUser(User user){
+        this.user = user;
+    }
     public void setTitle(String title){
         this.title = title;
     }
