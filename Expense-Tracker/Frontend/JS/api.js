@@ -21,7 +21,7 @@ async function sendTransactionApi(transaction){
             body: JSON.stringify(transaction) 
     });
 
-    return response.json();
+    return await response.json();
 }
 
 async function getSummaryData(){

@@ -1,6 +1,5 @@
 function getInput(){
     const description = document.querySelector('.description-input');
-    console.log(description);
         const desValue = description.value.trim();
 
         const amount = document.querySelector('.amount-input')
