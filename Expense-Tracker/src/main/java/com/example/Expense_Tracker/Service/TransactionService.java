@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -121,15 +122,20 @@ public class TransactionService {
     /*-----Logic for the PUT requests*/
 
     public List<ExpenseData> updateTransaction(long id, ExpenseData data){
-        ExpenseData transData = repository.findById(id).get();
+        CustomUserDetails user = userData();
+        Optional<ExpenseData> transaction = repository.findByIdAndUser(id, user.getUser());
 
-        transData.setTitle(data.getTitle());
-        transData.setAmount(data.getAmount());
-        transData.setType(data.getType());
+        if(transaction.isPresent()){
+            ExpenseData transData = transaction.get();
 
-        repository.save(transData);
+            transData.setTitle(data.getTitle());
+            transData.setAmount(data.getAmount());
+            transData.setType(data.getType());
+
+            repository.save(transData);
+        }
         
-        return repository.findAll();
+        return repository.findByUser(user.getUser());
     }
 
     /*-----Logic for POST requests-----*/
@@ -153,8 +159,14 @@ public class TransactionService {
     /*-----Logic for DELETE requests*/
 
     public List<ExpenseData> delTransaction(long idx){
-        repository.deleteById(idx);
 
-        return repository.findAll();
+        CustomUserDetails user = userData();
+        Optional<ExpenseData> data = repository.findByIdAndUser(idx, user.getUser());
+
+        if(data.isPresent()){
+            repository.delete(data.get());
+        }
+
+        return repository.findByUser(user.getUser());
     }
 }

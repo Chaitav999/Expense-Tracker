@@ -9,9 +9,8 @@ hideLoader();
 async function sendData(){
     displayloader();
     const addButton = document.querySelector('.add-button')
-
-    addButton.addEventListener('click', async () => {
         
+    try{
         const {desValue, amt, selectedRadio} = getInput();
 
         await sendTransactionApi({
@@ -20,12 +19,14 @@ async function sendData(){
             type: selectedRadio.value
         });
         resetInput();
-        loadData();
-        loadSummary();
+        await loadData();
+        await loadSummary();
+    }
         
-        
-   }) //eventlistener closing
-    hideLoader();
+    finally{
+        hideLoader();
+    }
+
 }
 
 async function loadSummary(){
@@ -59,15 +60,19 @@ async function loadData(){
           .innerHTML = displayData;
 }
 
-function deleteTransaction(idx){
+async function deleteTransaction(idx){
     displayloader()
 
-    const deleteTransac = deleteTransactionApi(idx);
+    try{
+        await deleteTransactionApi(idx);
 
-    loadData();
-    loadSummary();
-
-    hideLoader();
+        await loadData();
+        await loadSummary();
+    }
+    finally{
+        hideLoader();
+    }
+    
 }
 
 // ----- After clicking transaction button -----
