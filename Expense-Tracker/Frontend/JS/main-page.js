@@ -1,3 +1,9 @@
+const token = localStorage.getItem("token");
+
+if(token === null && !localStorage.getItem("guest")){
+    window.location.href = "login.html";
+}
+
 displayloader();
 let transactions = [] // saving transaction data for editing tasks later..
 loadData(); //load transaction
@@ -199,5 +205,9 @@ async function getTransactionHistory(month, year){
          .innerHTML = displayData;
 }
 
+function logout(){
 
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+}
 

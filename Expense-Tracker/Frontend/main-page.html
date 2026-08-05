@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="CSS/middleSection.css">
         <link rel="stylesheet" href="CSS/rightSection.css">
         <link rel="stylesheet" href="CSS/editPopup.css">
+        <link rel="stylesheet" href="CSS/singOutPopup.css">
         <link rel="stylesheet" href="CSS/summary.css">
         <title>Expense Tracker</title>
         
@@ -14,6 +15,11 @@
     <body>
         <section>
             <div class="css-body">
+                <img src="Images/logout.png"
+                             class="logout-icon"
+                             onclick="showLogoutPopup()"
+                             title="Logout">
+                        
                 <div class="left-section">
                     <img src="Images/LOGO.png" class="logo-img"/>
 
@@ -26,7 +32,8 @@
                 </div>
 
                 <div class="middle-section">
-                    <h2 class="header-1">Expense Tracker</h2>
+                        <h2 class="header-1">Expense Tracker</h2>
+                    
 
                     <div class="expense-dashboard">
 
@@ -228,6 +235,33 @@
             </div> <!--edit-popup-->
         </div> <!--overlay-->
 
+        <!-- Logout Popup -->
+        <div id="logout-overlay" class="overlay hidden">
+
+            <div class="logout-popup">
+
+                <h2>Sign Out</h2>
+
+                <p>Are you sure you want to sign out?</p>
+
+                <div class="buttons">
+
+                    <button id="cancel-logout-btn"
+                            onclick="hideLogoutPopup()">
+                        Cancel
+                    </button>
+
+                    <button id="logout-btn"
+                            onclick="logout()">
+                        Sign Out
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
         <!--showing confirmation message-->
         <div class="edit-successful lost">
             <div class="edit-successful-border">
@@ -246,5 +280,6 @@
         <script src="JS/UI.js"></script>
         <script src="JS/popup.js"></script>
         <script src="JS/main-page.js"></script>
+        
     </body>
 </html>

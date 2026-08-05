@@ -28,3 +28,18 @@ function successMessage(){
         message.classList.add("lost");
     }, 2000);
 }
+
+function showLogoutPopup(){
+
+    document
+        .getElementById("logout-overlay")
+        .classList.remove("hidden");
+
+}
+function hideLogoutPopup(){
+
+    document
+        .getElementById("logout-overlay")
+        .classList.add("hidden");
+
+}
