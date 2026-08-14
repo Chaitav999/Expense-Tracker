@@ -11,6 +11,9 @@
 
     padding-top:30px;
 }
+.left-section {
+    transition: width 0.3s ease, padding 0.3s ease;
+}
 .logo-img{
     height: 100px;
     width: 100px;
@@ -37,4 +40,41 @@
     background-color: rgba(255,255,255,0.15);
     color: white;
     font-weight: bold;
+}
+
+@media (max-width: 1100px) {
+
+    .left-section {
+        width: 0;
+        min-width: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .left-section .logo-img,
+    .left-section .dash-button,
+    .left-section .transaction-button,
+    .left-section .summary-button {
+        display: none;
+    }
+
+    .sidebar-open .left-section {
+        width: 220px;
+        padding-top: 30px;
+    }
+
+    .sidebar-open .left-section .logo-img,
+    .sidebar-open .left-section .dash-button,
+    .sidebar-open .left-section .transaction-button,
+    .sidebar-open .left-section .summary-button {
+        display: block;
+    }
+}
+@media (max-width: 1100px) {
+
+    .sidebar-open .left-section {
+        position: relative;
+        z-index: 9999;
+    }
+
 }

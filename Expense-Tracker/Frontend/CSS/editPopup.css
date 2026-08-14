@@ -151,3 +151,26 @@
     50% {transform: rotate(100deg);}
     100% {transform: rotate(360deg); }
 }
+
+@media (max-width: 500px) {
+
+    .edit-popup {
+        width: calc(100% - 30px);
+        max-width: 400px;
+        padding: 18px;
+    }
+
+    .radio-group {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .buttons {
+        flex-wrap: wrap;
+    }
+
+    #save-btn,
+    #cancel-btn {
+        flex: 1;
+    }
+}

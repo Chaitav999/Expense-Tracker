@@ -60,3 +60,20 @@
 .hidden{
     display: none;
 }
+
+@media (max-width: 450px) {
+
+    .logout-popup {
+        width: calc(100% - 30px);
+        padding: 20px;
+    }
+
+    .logout-popup .buttons {
+        gap: 10px;
+    }
+
+    #cancel-logout-btn,
+    #logout-btn {
+        width: 50%;
+    }
+}

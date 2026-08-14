@@ -64,7 +64,7 @@
 
 .right-section{
     flex: 1;
-    max-width: 450px;
+    max-width: 550px;
     padding: 20px;
     border-radius: 10px;
 }
@@ -74,7 +74,7 @@
     display:flex;
     flex-wrap:wrap;
 
-    gap:15px;
+    gap:25px;
 
     margin-top:20px;
 
@@ -130,4 +130,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* =========================================
+   RESPONSIVE DASHBOARD
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .middle-section {
+        padding: 20px;
+    }
+
+    .header-1 {
+        font-size: 32px;
+    }
+
+    .expense-dashboard {
+        gap: 15px;
+    }
+
+    .curr-balance,
+    .total-income,
+    .expense {
+        flex: 1 1 200px;
+        width: auto;
+        min-width: 180px;
+    }
+
+    .balance,
+    .income-dashboard,
+    .expense-class {
+        font-size: clamp(20px, 5vw, 30px);
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }

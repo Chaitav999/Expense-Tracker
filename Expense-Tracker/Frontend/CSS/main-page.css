@@ -89,3 +89,132 @@ body{
 .right-section{
     margin-right: 50px;
 }
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+.menu-toggle {
+    display: none;
+
+    position: fixed;
+    top: 15px;
+    left: 15px;
+
+    width: 45px;
+    height: 45px;
+
+    padding: 8px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: white;
+
+    cursor: pointer;
+
+    z-index: 10000;
+}
+
+.hamburger-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.menu-toggle:hover {
+    background: #f3f3f3;
+}
+
+
+/* =========================================
+   SMALL DESKTOP / TABLET
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-1{
+        margin-left: 55px;
+    }
+
+    /* Main content uses available space */
+
+    .middle-section {
+        flex: 1;
+        min-width: 0;
+        max-width: none;
+        width: auto;
+        padding: 20px 30px;
+    }
+
+    .right-section {
+        max-width: none;
+        margin-right: 20px;
+    }
+
+    /* Summary no longer assumes 220px sidebar */
+
+    .summary-section {
+        left: 0;
+        right: 0;
+    }
+}
+
+
+/* =========================================
+   SIDEBAR OPEN
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+    .sidebar-open .left-section {
+        width: 220px;
+        padding-top: 30px;
+    }
+
+    .sidebar-open .left-section .logo-img,
+    .sidebar-open .left-section .dash-button,
+    .sidebar-open .left-section .transaction-button,
+    .sidebar-open .left-section .summary-button {
+        display: block;
+    }
+}
+
+@media (max-width: 700px) {
+
+    /* Dashboard mobile view */
+    .css-body:not(.transaction-view):not(.summary-open) .right-section {
+        display: none;
+    }
+
+    .css-body:not(.transaction-view):not(.summary-open) .middle-section {
+        flex: 1;
+        width: 100%;
+        max-width: none;
+    }
+
+}
+
+@media (max-width: 1100px) {
+
+    /* When hamburger menu is open,
+       hide all page content */
+
+    .css-body.sidebar-open .middle-section,
+    .css-body.sidebar-open .right-section,
+    .css-body.sidebar-open .summary-section {
+        display: none;
+    }
+}
+@media (max-width: 600px) {
+    .header-1 {
+        margin-left: 50px;
+        font-size: 28px;
+    }
+}

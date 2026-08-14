@@ -109,8 +109,11 @@
 .monthly-income,
 .monthly-expense,
 .monthly-balance{
-    font-size:40px;
-    font-weight:bold;
+    font-size: clamp(16px, 1.8vw, 28px);
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .monthly-transaction-container{
@@ -375,4 +378,66 @@
 
     object-fit: contain;
     display: block;
+}
+
+/* =========================================
+   RESPONSIVE SUMMARY
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+    .summary-section {
+        left: 0;
+        right: 0;
+        padding: 20px;
+    }
+
+    .summary-dashboard {
+        flex-wrap: wrap;
+    }
+
+    .summary-card {
+        flex: 1 1 220px;
+        width: auto;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .summary-section {
+        padding: 15px;
+        z-index: 1;
+    }
+
+    .summary-filter-container {
+        flex-wrap: wrap;
+    }
+
+    .month-select,
+    .year-select,
+    .show-summary-button {
+        width: 100%;
+    }
+
+    .summary-dashboard {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .summary-card {
+        width: 100%;
+        min-height: 150px;
+        height: auto;
+    }
+
+    .summary-transaction-container {
+        padding: 10px;
+        overflow-x: auto;
+    }
+
+    .summary-transaction-header,
+    .summary-transaction-container .transaction-row {
+        min-width: 650px;
+    }
 }
