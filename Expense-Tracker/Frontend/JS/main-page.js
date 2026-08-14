@@ -14,14 +14,13 @@ hideLoader();
 
 async function sendData(){
     displayloader();
-    const addButton = document.querySelector('.add-button')
         
     try{
         const {desValue, amt, selectedRadio} = getInput();
 
         await sendTransactionApi({
             title: desValue,
-            amount: amt,
+            amount: Number(amt),
             type: selectedRadio.value
         });
         resetInput();
@@ -58,7 +57,6 @@ async function loadData(){
         let displayData = ''
 
         data.forEach((element) => {
-
             displayData += createTransactionRow(element);
         });
           
@@ -121,50 +119,58 @@ function editTransaction(id){
 
 async function sendUpdatedTransaction(){
     displayloader()
-    const newTitle = document.querySelector('.title-input').value;
+    try{
+        const newTitle = document.querySelector('.title-input').value;
 
-    const newAmt = document.querySelector('.amt-input').value;
+        const newAmt = document.querySelector('.amt-input').value;
 
-    const newType = document.querySelector('input[name=edit-type]:checked');
+        const newType = document.querySelector('input[name=edit-type]:checked');
 
-    await editTransactionApi(editId, {
-        newTitle,
-        newAmt,
-        newType
-    });
+        await editTransactionApi(editId, {
+            newTitle,
+            newAmt,
+            newType
+        });
 
-    
-    await loadData();
-    await loadSummary();
-
-    hideLoader()  
-    successMessage();
-    hidePopup1();
+        
+        await loadData();
+        await loadSummary();
+        successMessage();
+    }
+    finally{
+        hideLoader();
+        hidePopup1();
+    }
 }
 
 async function getMonthlySummary(){
     displayloader();
-    const month = document.querySelector('.month-select').value;
-    const year = document.querySelector('.year-select').value;
 
-    if(month === '' || year === ''){
-        alert("Please select a date and a year!");
-        return;
-    }
+    try{
+        const month = document.querySelector('.month-select').value;
+        const year = document.querySelector('.year-select').value;
 
-    const data = await getMonthlySummaryData(month, year);
+        if(month === '' || year === ''){
+            alert("Please select a date and a year!");
+            return;
+        }
+
+        const data = await getMonthlySummaryData(month, year);
+            
+            document.querySelector('.monthly-balance')
+            .innerHTML = `$${data.currBal.toFixed(2)}`;
+
+            document.querySelector('.monthly-expense')
+            .innerHTML = `$${data.expense.toFixed(2)}`;
+
+            document.querySelector('.monthly-income')
+            .innerHTML = `$${data.income.toFixed(2)}`;
+
+        getTransactionHistory(month, year);
         
-        document.querySelector('.monthly-balance')
-         .innerHTML = `$${data.currBal.toFixed(2)}`;
-
-        document.querySelector('.monthly-expense')
-         .innerHTML = `$${data.expense.toFixed(2)}`;
-
-        document.querySelector('.monthly-income')
-         .innerHTML = `$${data.income.toFixed(2)}`;
-
-      getTransactionHistory(month, year);
-      hideLoader();
+    }finally{
+        hideLoader();
+    }
 }
 
 

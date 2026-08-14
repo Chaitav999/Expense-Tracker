@@ -44,7 +44,7 @@ function createTransactionRow(element){
 
                 <div class="date-column">${element.date}</div>
 
-                <div>$${element.amount.toFixed(2)}</div>
+                <div>$${element.amount}</div>
 
                 <div class="${element.type}-type">
                     ${element.type}
