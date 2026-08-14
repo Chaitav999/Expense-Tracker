@@ -2,7 +2,7 @@ const url = "http://localhost:8080";
 
 async function getData(){
     //logic for guest
-    if(localStorage.getItem("guest")){
+    if(sessionStorage.getItem("guest")){
         return getGuestData();
     }
     
@@ -20,7 +20,7 @@ async function getData(){
 async function sendTransactionApi(transaction){
 
     //logic for guest
-    if(localStorage.getItem("guest")){
+    if(sessionStorage.getItem("guest")){
         return storeGuestTransactions(transaction);
     }
     
@@ -40,7 +40,7 @@ async function sendTransactionApi(transaction){
 async function getSummaryData(){
 
     // code for guests
-    if(localStorage.getItem("guest")){
+    if(sessionStorage.getItem("guest")){
         const transactionArray = getGuestTransactions();
 
         return calGuestSummary(transactionArray);
@@ -60,7 +60,7 @@ async function getSummaryData(){
 async function getMonthlySummaryData(month, year){
 
     // code for guests
-    if(localStorage.getItem("guest")){
+    if(sessionStorage.getItem("guest")){
 
         const transactionArray = getGuestTransactions();
         const selectedMonth = Number(month);
@@ -89,7 +89,7 @@ async function getMonthlySummaryData(month, year){
 async function getMonthlyTransactionHistory(month, year){
 
     // code for guests
-    if(localStorage.getItem("guest")){
+    if(sessionStorage.getItem("guest")){
         const transactionArray = getGuestTransactions();
         const selectedMonth = Number(month);
         const selectedYear = Number(year);
@@ -117,7 +117,7 @@ async function getMonthlyTransactionHistory(month, year){
 async function deleteTransactionApi(id){
 
     // code for guests
-    if(localStorage.getItem("guest")){
+    if(sessionStorage.getItem("guest")){
         return deleteGuestTransaction(id);
     }
 
@@ -135,7 +135,7 @@ async function deleteTransactionApi(id){
 async function editTransactionApi(editId, updatedData){
 
     // code for guests
-    if(localStorage.getItem("guest")){
+    if(sessionStorage.getItem("guest")){
         return editGuestTransaction(editId, updatedData);
     }
 

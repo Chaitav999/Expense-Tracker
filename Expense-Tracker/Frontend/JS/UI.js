@@ -44,6 +44,8 @@ function setActive(clickedButton){
     });
 
     clickedButton.classList.add('active-button');
+
+    document.querySelector(".css-body").classList.remove("sidebar-open");
 }
 
 /* -----Show dashboard again----- */

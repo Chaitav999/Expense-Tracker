@@ -1,11 +1,12 @@
 function guestMode(){
 
-    localStorage.setItem("guest", "true");
+    sessionStorage.setItem("guest", "true");
+    sessionStorage.removeItem("guestTransactions");
     window.location.href = "main-page.html";
 }
 
 function getGuestTransactions(){
-    const data = localStorage.getItem("guestTransactions");
+    const data = sessionStorage.getItem("guestTransactions");
 
     if(!data){
         return [];
@@ -38,12 +39,11 @@ function calGuestSummary(transactionArray){
 
         summary.currBal = summary.income - summary.expense;
 
-        console.log(summary);
     return summary;
 }
 
 function editGuestTransaction(editId, updatedData){
-    const transactions = localStorage.getItem("guestTransactions");
+    const transactions = sessionStorage.getItem("guestTransactions");
 
         let transactionArray;
 
@@ -63,14 +63,14 @@ function editGuestTransaction(editId, updatedData){
             }    
         });
 
-        localStorage.setItem("guestTransactions", JSON.stringify(transactionArray));
+        sessionStorage.setItem("guestTransactions", JSON.stringify(transactionArray));
 
         return updatedTransaction;
 }
 
 function deleteGuestTransaction(id){
     let transactionArray;
-        const transactions = localStorage.getItem("guestTransactions");
+        const transactions = sessionStorage.getItem("guestTransactions");
 
         if(!transactions){
             transactionArray = [];
@@ -83,16 +83,16 @@ function deleteGuestTransaction(id){
             return transaction.id !== id;
         });
 
-        localStorage.setItem("guestTransactions", JSON.stringify(updatedTransaction));
+        sessionStorage.setItem("guestTransactions", JSON.stringify(updatedTransaction));
         return updatedTransaction;
 }
 
 function storeGuestTransactions(transaction){
-        console.log("after");
+    
         transaction.id = Date.now();
         transaction.date = new Date().toISOString().split("T")[0];
 
-        const guestTransactions = localStorage.getItem("guestTransactions");
+        const guestTransactions = sessionStorage.getItem("guestTransactions");
         let transactions;
 
         if(!guestTransactions){
@@ -103,13 +103,13 @@ function storeGuestTransactions(transaction){
 
         transactions.push(transaction);
 
-        localStorage.setItem("guestTransactions", JSON.stringify(transactions));
+        sessionStorage.setItem("guestTransactions", JSON.stringify(transactions));
 
         return transaction;
 }
 
 function getGuestData(){
-    const guestTransactions = localStorage.getItem("guestTransactions");
+    const guestTransactions = sessionStorage.getItem("guestTransactions");
 
     if(!guestTransactions){
         return [];

@@ -72,6 +72,7 @@ async function deleteTransaction(idx){
 
         await loadData();
         await loadSummary();
+        await getMonthlySummary();
     }
     finally{
         hideLoader();
@@ -213,7 +214,16 @@ async function getTransactionHistory(month, year){
 
 function logout(){
 
-    localStorage.removeItem("token");
+    if(sessionStorage.getItem("guest")){
+        sessionStorage.removeItem("guest");
+        sessionStorage.removeItem("guestTransactions");
+    }else{
+        localStorage.removeItem("token");
+    }
+
     window.location.href = "login.html";
 }
 
+function toggleSidebar(){
+    document.querySelector(".css-body").classList.toggle("sidebar-open");
+}
