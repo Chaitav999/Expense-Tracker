@@ -6,7 +6,7 @@ function loginUser(){
     if(email === '') return;
     if(password === '') return;
 
-    fetch("http://localhost:8080/login", {
+    fetch("https://expense-tracker-n009.onrender.com/login", {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"

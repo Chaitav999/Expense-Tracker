@@ -8,7 +8,7 @@ function registerUser(){
     if(email === '') return;
     if(password === '') return;
 
-    fetch("http://localhost:8080/register", {
+    fetch("https://expense-tracker-n009.onrender.com/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/JSON"

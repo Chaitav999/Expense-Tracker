@@ -1,4 +1,4 @@
-const url = "http://localhost:8080";
+const url = "https://expense-tracker-n009.onrender.com";
 
 async function getData(){
     //logic for guest
@@ -104,7 +104,7 @@ async function getMonthlyTransactionHistory(month, year){
     }
 
     // code for logged-in user
-    const response = await  fetch(`http://localhost:8080/monthly-summary-transactionHistory?month=${month}&year=${year}`, {
+    const response = await  fetch(`${url}/monthly-summary-transactionHistory?month=${month}&year=${year}`, {
         headers:{
             "Authorization": "Bearer " + localStorage.getItem("token")
         }
@@ -122,7 +122,7 @@ async function deleteTransactionApi(id){
     }
 
     // code for logged-in user
-    const response = await fetch(`http://localhost:8080/transactions/${id}`, {
+    const response = await fetch(`${url}/transactions/${id}`, {
         method: "DELETE",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
@@ -140,7 +140,7 @@ async function editTransactionApi(editId, updatedData){
     }
 
     // code for logged-in user
-    const response = await fetch(`http://localhost:8080/transactions/${editId}`, {
+    const response = await fetch(`${url}/transactions/${editId}`, {
         method: "PUT",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token"),
