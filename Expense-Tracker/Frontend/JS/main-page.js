@@ -1,7 +1,7 @@
 const token = localStorage.getItem("token");
 
 if(token === null && !localStorage.getItem("guest")){
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 displayloader();
@@ -221,7 +221,7 @@ function logout(){
         localStorage.removeItem("token");
     }
 
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 function toggleSidebar(){

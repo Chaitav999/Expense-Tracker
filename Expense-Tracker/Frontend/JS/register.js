@@ -32,7 +32,7 @@ function registerUser(){
             error.innerHTML = response.message;
 
         }else{
-            window.location.href = "login.html";
+            window.location.href = "index.html";
             console.log("login successful");
         }
       })
