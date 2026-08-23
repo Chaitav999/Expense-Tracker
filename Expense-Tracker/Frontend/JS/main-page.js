@@ -151,11 +151,6 @@ async function getMonthlySummary(){
         const month = document.querySelector('.month-select').value;
         const year = document.querySelector('.year-select').value;
 
-        if(month === '' || year === ''){
-            alert("Please select a date and a year!");
-            return;
-        }
-
         const data = await getMonthlySummaryData(month, year);
             
             document.querySelector('.monthly-balance')
