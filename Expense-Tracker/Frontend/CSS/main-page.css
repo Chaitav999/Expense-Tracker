@@ -215,9 +215,48 @@ body{
 @media (max-width: 600px) {
 
     .css-body {
-        display: block;
+        display: flex;
+        flex-direction: column;
         min-height: 100vh;
         height: auto;
+        gap: 0;
+    }
+
+    .middle-section {
+        width: 100%;
+        max-width: none;
+        padding: 20px 15px;
+        box-sizing: border-box;
+    }
+
+    .right-section {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .header-1 {
+        margin: 0;
+        padding: 0 60px;
+        text-align: center;
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .logout-icon {
+        width: 45px;
+        height: 45px;
+        top: 12px;
+        right: 15px;
+    }
+
+    .menu-toggle {
+        top: 12px;
+        left: 15px;
+        width: 45px;
+        height: 45px;
     }
 
     .header-1 {
@@ -280,6 +319,41 @@ body{
 
     .input-container {
         width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 700px) {
+
+    /* Dashboard */
+    .css-body:not(.transaction-view):not(.summary-open) .middle-section {
+        display: block;
+        width: 100%;
+        flex: none;
+        opacity: 1;
+        padding: 20px 15px;
+        transform: none;
+    }
+
+    /* Hide add-transaction section on dashboard */
+    .css-body:not(.transaction-view):not(.summary-open) .right-section {
+        display: none;
+    }
+
+    /* Transactions */
+    .css-body.transaction-view .middle-section {
+        display: none;
+    }
+
+    .css-body.transaction-view .right-section {
+        display: block;
+        width: 100%;
+        flex: none;
+        max-width: none;
+        margin: 0;
+        padding: 15px;
+        opacity: 1;
+        transform: none;
         box-sizing: border-box;
     }
 }
