@@ -213,8 +213,73 @@ body{
     }
 }
 @media (max-width: 600px) {
+
+    .css-body {
+        display: block;
+        min-height: 100vh;
+        height: auto;
+    }
+
     .header-1 {
-        margin-left: 50px;
+        margin: 0;
+        padding: 0 60px;
+        text-align: center;
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .logout-icon {
+        width: 45px;
+        height: 45px;
+        top: 12px;
+        right: 15px;
+    }
+
+    .menu-toggle {
+        top: 12px;
+        left: 15px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .middle-section {
+        width: 100%;
+        max-width: none;
+        padding: 20px 15px;
+        box-sizing: border-box;
+    }
+
+    .expense-dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .curr-balance,
+    .total-income,
+    .expense {
+        width: 100%;
+        min-width: 0;
+        height: 170px;
+        box-sizing: border-box;
+    }
+
+    .balance,
+    .income-dashboard,
+    .expense-class {
         font-size: 28px;
+    }
+
+    .right-section {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .input-container {
+        width: 100%;
+        box-sizing: border-box;
     }
 }

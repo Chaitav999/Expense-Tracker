@@ -406,38 +406,102 @@
 @media (max-width: 700px) {
 
     .summary-section {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        width: 100%;
         padding: 15px;
+        box-sizing: border-box;
         z-index: 1;
     }
 
+    .summary-header {
+        margin-top: 55px;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .summary-header h1 {
+        font-size: 32px;
+    }
+
     .summary-filter-container {
-        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
     }
 
     .month-select,
     .year-select,
     .show-summary-button {
         width: 100%;
+        box-sizing: border-box;
+        height: 48px;
     }
 
     .summary-dashboard {
+        display: flex;
         flex-direction: column;
         gap: 15px;
     }
 
     .summary-card {
         width: 100%;
-        min-height: 150px;
-        height: auto;
+        height: 180px;
+        min-height: 0;
+        box-sizing: border-box;
+    }
+
+    .summary-card p {
+        font-size: 18px;
+    }
+
+    .monthly-income,
+    .monthly-expense,
+    .monthly-balance {
+        font-size: 24px;
     }
 
     .summary-transaction-container {
+        width: 100%;
+        min-height: 300px;
+        max-height: 500px;
         padding: 10px;
+        box-sizing: border-box;
         overflow-x: auto;
     }
 
     .summary-transaction-header,
     .summary-transaction-container .transaction-row {
-        min-width: 650px;
+        min-width: 0;
+        width: 100%;
+        grid-template-columns: 1.5fr 1.2fr 1.2fr 1fr 0.7fr;
+        font-size: 13px;
+    }
+
+    .summary-transaction-header {
+        padding: 8px 4px;
+    }
+
+    .transaction-row {
+        padding: 10px 4px;
+    }
+
+    .summary-transaction-title {
+        margin-left: 2px;
+    }
+
+    .delete-button,
+    .edit-button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .edit-img,
+    .delete-img {
+        width: 16px;
+        height: 16px;
     }
 }
