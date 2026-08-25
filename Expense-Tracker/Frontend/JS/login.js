@@ -36,7 +36,7 @@ function loginUser(){
 }
 
 function invalidLogin(){
-    const error = document.querySelector('.error');
+    const error = document.querySelector('.login-error');
 
     error.innerHTML = `Incorrect username or password.`;
 }
