@@ -259,6 +259,7 @@
     }
 
     .transaction-container {
+        max-width: 350px;
         padding: 10px;
         overflow-x: auto;
     }

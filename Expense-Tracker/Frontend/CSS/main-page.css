@@ -214,17 +214,14 @@ body{
 }
 @media (max-width: 600px) {
 
-    .css-body {
-        display: block;
-        min-height: 100vh;
-        height: auto;
-    }
 
     .header-1 {
         margin: 0;
         padding: 0 60px;
         text-align: center;
-        font-size: 32px;
+        font-size: 28px;
+        margin-top: 20px;
+        margin-bottom: 20px;
         line-height: 1.2;
     }
 
