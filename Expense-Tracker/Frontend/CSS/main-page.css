@@ -211,6 +211,13 @@ body{
     .css-body.sidebar-open .summary-section {
         display: none;
     }
+
+    .logout-icon {
+        width: 45px;
+        height: 45px;
+        top: 12px;
+        right: 15px;
+    }
 }
 @media (max-width: 600px) {
 

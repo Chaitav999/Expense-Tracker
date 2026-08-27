@@ -506,11 +506,3 @@
     }
 }
 
-@media screen and (max-width: 768px) {
-  h2 {
-    font-size: 0.67em; /* ----Matches standard h6 size relative to base text---- */
-  }
-  h1 {
-    font-size: 0.85em;
-  }
-}
