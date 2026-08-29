@@ -72,7 +72,6 @@ async function deleteTransaction(idx){
 
         await loadData();
         await loadSummary();
-        await getMonthlySummary();
     }
     finally{
         hideLoader();

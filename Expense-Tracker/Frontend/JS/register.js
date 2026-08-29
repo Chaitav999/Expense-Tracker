@@ -7,6 +7,12 @@ async function registerUser(){
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
+        let usernameError = document.querySelector('.username-error');
+        let emailError = document.querySelector('.email-error');
+
+        usernameError.innerHTML = '';
+        emailError.innerHTML = '';
+
         if(username === '' || email === '' || password === ''){
             hideLoader();
             return; 
@@ -16,13 +22,11 @@ async function registerUser(){
 
         if(res.message === "Username already exists"){
 
-            const error = document.querySelector('.username-error');
-            error.innerHTML = res.message;
+            usernameError.innerHTML = res.message;
 
         } else if(res.message === "Email already exists"){
 
-            const error = document.querySelector('.email-error');
-            error.innerHTML = res.message;
+            emailError.innerHTML = res.message;
 
         }else{
             window.location.href = "index.html";
@@ -32,7 +36,6 @@ async function registerUser(){
     }finally{
         hideLoader();
     }
-    
 }
 
 function displayloader(){
