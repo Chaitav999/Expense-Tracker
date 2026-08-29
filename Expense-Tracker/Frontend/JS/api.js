@@ -157,3 +157,40 @@ async function editTransactionApi(editId, updatedData){
 
     return data;
 }
+
+async function getLoginInfo(email, password){
+
+    const response = await fetch("https://expense-tracker-n009.onrender.com/login", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+
+    console.log(response);
+    const res = await response.json();
+    console.log(res);
+    return res;
+}
+
+async function sendUserInfo(username, email, password){
+    const response = await fetch("https://expense-tracker-n009.onrender.com/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/JSON"
+            },
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password
+            })
+        });
+    
+    const res = await response.json();
+
+    return res;
+}

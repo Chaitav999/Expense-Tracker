@@ -1,4 +1,4 @@
-function registerUser(){
+async function registerUser(){
 
     displayloader();
 
@@ -7,38 +7,28 @@ function registerUser(){
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        if(username === '') return; 
-        if(email === '') return;
-        if(password === '') return;
+        if(username === '' || email === '' || password === ''){
+            hideLoader();
+            return; 
+        }
 
-        fetch("https://expense-tracker-n009.onrender.com/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/JSON"
-            },
-            body: JSON.stringify({
-                username: username,
-                email: email,
-                password: password
-            })
-        }).then(res => res.json())
-        .then(response => {
+        const res = await sendUserInfo(username, email, password);
 
-            if(response.message === "Username already exists"){
+        if(res.message === "Username already exists"){
 
-                const error = document.querySelector('.username-error');
-                error.innerHTML = response.message;
+            const error = document.querySelector('.username-error');
+            error.innerHTML = res.message;
 
-            } else if(response.message === "Email already exists"){
+        } else if(res.message === "Email already exists"){
 
-                const error = document.querySelector('.email-error');
-                error.innerHTML = response.message;
+            const error = document.querySelector('.email-error');
+            error.innerHTML = res.message;
 
-            }else{
-                window.location.href = "index.html";
-                console.log("login successful");
-            }
-        })
+        }else{
+            window.location.href = "index.html";
+            
+        } 
+
     }finally{
         hideLoader();
     }

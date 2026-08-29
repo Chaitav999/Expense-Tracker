@@ -1,6 +1,6 @@
 const token = localStorage.getItem("token");
 
-if(token === null && !localStorage.getItem("guest")){
+if(token === null && !sessionStorage.getItem("guest")){
     window.location.href = "index.html";
 }
 

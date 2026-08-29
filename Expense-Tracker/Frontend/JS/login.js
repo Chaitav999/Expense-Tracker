@@ -1,4 +1,4 @@
-function loginUser(){
+async function loginUser(){
     displayloader();
     try{
         const email = document.getElementById("email").value;
@@ -7,33 +7,17 @@ function loginUser(){
         if(email === '') return;
         if(password === '') return;
 
-        fetch("https://expense-tracker-n009.onrender.com/login", {
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        }).then(res => {
-            console.log(res);
-            if(!res.ok){
+        const res = await getLoginInfo(email, password);
 
+            if(!res.successStatus){
                 invalidLogin();
-                password = '';
                 throw new Error("Something went wrong!");
             }
-            return res.json();
-        })
-        .then(response => {
-            
-            if(response.successStatus){
-                localStorage.setItem("token", response.token);
+            else{
+                localStorage.setItem("token", res.token);
                 window.location.href = "main-page.html";
             } 
             
-        })
     } finally{
         hideLoader();
     }
@@ -47,6 +31,7 @@ function invalidLogin(){
 }
 
 function displayloader(){
+    console.log("working displayloader");
     document.querySelector('.loading-effect').classList.remove("hidden-loader");
 }
 function hideLoader(){
