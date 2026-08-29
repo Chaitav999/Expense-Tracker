@@ -1,3 +1,10 @@
+
+
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    
+
+
 async function registerUser(){
 
     displayloader();
@@ -12,6 +19,12 @@ async function registerUser(){
 
         usernameError.innerHTML = '';
         emailError.innerHTML = '';
+
+        if(!emailPattern.test(email)) {
+            hideLoader();
+            emailError.innerHTML = "Please enter a valid email address."; 
+            return;
+    }
 
         if(username === '' || email === '' || password === ''){
             hideLoader();
