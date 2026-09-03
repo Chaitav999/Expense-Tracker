@@ -7,10 +7,15 @@ function getInput(){
 
         const selectedRadio = document.querySelector('input[name=TransactionType]:checked');
 
-     /*   if(selectedRadio === null){
+        if(desValue === '' || amt === ''){
+            alert("Please fill all the fields");
+            return;
+        }
+
+        if(selectedRadio === null){
             alert("Please select Income or Expense");
             return;
-        } */
+        } 
 
     return {
         desValue,
